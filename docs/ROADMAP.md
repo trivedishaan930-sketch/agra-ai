@@ -26,6 +26,21 @@
 - Multi-tenant isolation
 - Redis-backed rate limiting
 - Managed secret rotation
+
+## Authentication Foundation
+- Passwordless email OTP scaffold
+- Google OAuth scaffold
+- Server and client session helpers
+- Protected route middleware
+- Reusable auth cards and layouts
+- RBAC role architecture without permissions
+
+## Future Authentication Work
+- Permission matrix
+- Organization membership persistence
+- Account recovery UX
+- Additional OAuth providers
+- Audit logging for authentication events
 - Observability
 - RBAC
 - Audit logging

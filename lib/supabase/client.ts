@@ -2,6 +2,13 @@ import { createBrowserClient } from "@supabase/ssr";
 import { env } from "@/lib/env";
 
 export function createSupabaseBrowserClient() {
+  return createBrowserClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    auth: {
+      autoRefreshToken: true,
+      detectSessionInUrl: true,
+      persistSession: true,
+    },
+  });
   return createBrowserClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
 import { env } from "@/config/env";
 

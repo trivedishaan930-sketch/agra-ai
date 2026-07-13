@@ -32,6 +32,9 @@ The logger emits structured JSON entries with levels, timestamps, optional reque
 
 ## Environment
 Required runtime values include application URL, Supabase URL and keys, and the PostgreSQL database URL. Future AI provider keys are optional placeholders until provider integrations are implemented.
+
+## Authentication Foundation
+Authentication is isolated behind `services/auth/*` with separate client, server, session, helper, guard, and RBAC modules. Supabase currently supports passwordless email OTP and Google OAuth while preserving provider-oriented types for future auth providers. Middleware protects `/dashboard`, `/settings`, and `/projects` route families automatically, and server route guards are available for layouts that need defense-in-depth checks.
 - Provider isolation for auth, data, and AI services
 
 ## Directory Strategy
