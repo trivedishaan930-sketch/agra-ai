@@ -1,0 +1,21 @@
+# AgraAI Product Requirements Document
+
+## Purpose
+AgraAI is an AI-native SaaS platform foundation for agriculture teams. This repository intentionally contains platform scaffolding only; business workflows will be specified before implementation.
+
+## Goals
+- Establish a secure, modular Next.js application foundation.
+- Support future authenticated dashboard experiences without implementing business logic in this phase.
+- Provide a scalable structure for AI, data, and product feature modules.
+- Standardize engineering foundations for configuration, logging, validation, security, and API contracts.
+
+## Non-Goals
+- No domain-specific business logic in the foundation phase.
+- No production data models beyond baseline identity profile scaffolding.
+- No AI provider routing, prompt engine, workflow engine, marketplace, or agent builder.
+
+## Engineering Requirements
+- Environment configuration must be validated at runtime and fail fast when required values are missing.
+- API routes must use consistent success, error, validation, and pagination response shapes.
+- Security headers and request IDs must be applied centrally through middleware.
+- Logging must be structured and compatible with future external observability systems.
