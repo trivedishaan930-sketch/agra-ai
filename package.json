@@ -53,5 +53,38 @@
   "engines": {
     "node": ">=20.11.0",
     "npm": ">=10.0.0"
+    "@hookform/resolvers": "latest",
+    "@prisma/client": "latest",
+    "@radix-ui/react-avatar": "latest",
+    "@radix-ui/react-label": "latest",
+    "@radix-ui/react-separator": "latest",
+    "@radix-ui/react-slot": "latest",
+    "@radix-ui/react-tooltip": "latest",
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "lucide-react": "latest",
+    "next": "15.4.1",
+    "next-themes": "latest",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-hook-form": "latest",
+    "tailwind-merge": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "latest",
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "15.4.1",
+    "prettier": "latest",
+    "prettier-plugin-tailwindcss": "latest",
+    "prisma": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }

@@ -6,4 +6,7 @@ export const authService = {
   signInWithEmailOtp,
   signInWithOAuth,
   signOut,
+
+export const authService = {
+  client: createSupabaseBrowserClient,
 };

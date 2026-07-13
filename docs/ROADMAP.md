@@ -11,6 +11,8 @@
 - Health endpoint
 - Security middleware
 - Rate limiting abstraction
+- Supabase authentication wiring
+- Prisma and PostgreSQL baseline
 
 ## Phase 1: Product Discovery
 - Define domain personas
@@ -39,3 +41,7 @@
 - Account recovery UX
 - Additional OAuth providers
 - Audit logging for authentication events
+- Observability
+- RBAC
+- Audit logging
+- Multi-tenant isolation

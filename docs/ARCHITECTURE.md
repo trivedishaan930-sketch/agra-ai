@@ -35,3 +35,15 @@ Required runtime values include application URL, Supabase URL and keys, and the 
 
 ## Authentication Foundation
 Authentication is isolated behind `services/auth/*` with separate client, server, session, helper, guard, and RBAC modules. Supabase currently supports passwordless email OTP and Google OAuth while preserving provider-oriented types for future auth providers. Middleware protects `/dashboard`, `/settings`, and `/projects` route families automatically, and server route guards are available for layouts that need defense-in-depth checks.
+- Provider isolation for auth, data, and AI services
+
+## Directory Strategy
+- `app`: Next.js routes and layouts
+- `components`: shared UI and layout primitives
+- `features`: domain-oriented feature modules
+- `lib`: framework adapters and shared utilities
+- `services`: application service facades
+- `database`: database clients and persistence utilities
+- `ai`: AI provider abstractions
+- `config`: environment and navigation configuration
+- `docs`: product and architecture documentation
