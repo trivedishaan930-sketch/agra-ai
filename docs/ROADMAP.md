@@ -11,6 +11,8 @@
 - Health endpoint
 - Security middleware
 - Rate limiting abstraction
+- Supabase authentication wiring
+- Prisma and PostgreSQL baseline
 
 ## Phase 1: Product Discovery
 - Define domain personas
@@ -24,3 +26,7 @@
 - Multi-tenant isolation
 - Redis-backed rate limiting
 - Managed secret rotation
+- Observability
+- RBAC
+- Audit logging
+- Multi-tenant isolation

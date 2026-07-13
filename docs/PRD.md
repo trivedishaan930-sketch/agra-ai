@@ -8,6 +8,8 @@ AgraAI is an AI-native SaaS platform foundation for agriculture teams. This repo
 - Support future authenticated dashboard experiences without implementing business logic in this phase.
 - Provide a scalable structure for AI, data, and product feature modules.
 - Standardize engineering foundations for configuration, logging, validation, security, and API contracts.
+- Support authenticated dashboard experiences.
+- Provide a scalable structure for AI, data, and product feature modules.
 
 ## Non-Goals
 - No domain-specific business logic in the foundation phase.

@@ -32,3 +32,15 @@ The logger emits structured JSON entries with levels, timestamps, optional reque
 
 ## Environment
 Required runtime values include application URL, Supabase URL and keys, and the PostgreSQL database URL. Future AI provider keys are optional placeholders until provider integrations are implemented.
+- Provider isolation for auth, data, and AI services
+
+## Directory Strategy
+- `app`: Next.js routes and layouts
+- `components`: shared UI and layout primitives
+- `features`: domain-oriented feature modules
+- `lib`: framework adapters and shared utilities
+- `services`: application service facades
+- `database`: database clients and persistence utilities
+- `ai`: AI provider abstractions
+- `config`: environment and navigation configuration
+- `docs`: product and architecture documentation
