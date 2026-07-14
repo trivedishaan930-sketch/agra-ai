@@ -1,86 +1,413 @@
-# CTO Decisions
+# AgraAI CTO Decisions
 
-This document records durable technical and product-engineering decisions for AgraAI. It should be updated when a decision changes the architecture, operating model, risk posture, or implementation sequence of the platform.
+Version: 1.0
+Status: Dynamic
+Document Type: Engineering Decision Log
 
-## Decision Log
+---
 
-### 001. Keep The Repository In Platform-Foundation Mode
+# Purpose
 
-**Decision:** AgraAI remains in platform-foundation mode until agriculture workflows are explicitly specified.
+This document records all major technical and architectural decisions made during the development of AgraAI.
 
-**Rationale:** The platform needs reliable authentication, configuration, security, logging, API contracts, and database foundations before domain workflows are introduced.
+Every significant decision must include:
 
-**Implications:**
+• Decision
+• Reason
+• Alternatives Considered
+• Final Choice
+• Impact
 
-- Avoid implementing agriculture business logic prematurely.
-- Treat product features as deferred unless backed by requirements.
-- Prioritize stability, security, and maintainability over feature breadth.
+Never delete previous decisions.
 
-### 002. Preserve Provider Isolation
+Only append new decisions.
 
-**Decision:** Auth, AI, database, security, logging, and external-service concerns must stay behind explicit service or infrastructure boundaries.
+---
 
-**Rationale:** Provider isolation allows AgraAI to evolve implementation details without rewriting product features.
+===============================================================================
+DECISION 001
+===============================================================================
 
-**Implications:**
+Title
 
-- Product code should consume shared services instead of provider SDKs directly.
-- Supabase details should remain isolated behind auth and database adapters.
-- Future AI providers should be accessed through provider-neutral interfaces.
+Repository as Engineering Memory
 
-### 003. Use Server-First Application Architecture
+Status
 
-**Decision:** Server-first rendering and server-side validation remain the default architecture direction.
+Approved
 
-**Rationale:** Server-first design improves security, data-access control, performance, and operational clarity for an authenticated SaaS platform.
+Decision
 
-**Implications:**
+The GitHub repository documentation is the permanent engineering memory of AgraAI.
 
-- Use client components only when browser interactivity requires them.
-- Keep sensitive logic and secrets on the server.
-- Enforce protected-route behavior with middleware and server-side guards where appropriate.
+Reason
 
-### 004. Make Configuration Fail Fast
+AI coding assistants have limited conversation memory.
 
-**Decision:** Runtime configuration must be validated centrally and fail fast when required values are missing or invalid.
+Multiple Codex accounts may be used.
 
-**Rationale:** Early failure prevents undefined production behavior and makes deployment issues easier to diagnose.
+Development must continue seamlessly.
 
-**Implications:**
+Alternatives
 
-- Do not scatter raw `process.env` reads through application code.
-- Keep required and optional environment variables documented.
-- Treat configuration changes as architecture-affecting changes when they alter runtime behavior.
+Conversation history
 
-### 005. Defer Production AI Until Evaluation And Guardrails Exist
+External notes
 
-**Decision:** AI functionality should remain scaffolded until use cases, provider boundaries, evaluation strategy, observability, safety controls, and cost controls are defined.
+Local documentation
 
-**Rationale:** Agriculture-facing AI can influence operational, financial, compliance, and agronomic decisions. It must be traceable and reviewable before production use.
+Final Choice
 
-**Implications:**
+Repository Documentation
 
-- Do not add free-form AI automation without workflow constraints.
-- Version prompts, model settings, tools, and evaluation fixtures once introduced.
-- Preserve human review for consequential recommendations.
+Impact
 
-### 006. Stabilize The Foundation Before Expanding Product Scope
+Very High
 
-**Decision:** The next engineering priority is repository health, middleware correctness, authentication reliability, and build/check stability.
+---
 
-**Rationale:** Product expansion on top of unstable platform primitives compounds risk and slows future delivery.
+===============================================================================
+DECISION 002
+===============================================================================
 
-**Implications:**
+Title
 
-- Validate package manifest health before relying on scripts.
-- Reconcile middleware behavior before depending on protected routes.
-- Verify authentication flows before adding user-facing dashboard features.
+AI Provider Strategy
 
-## Decision Update Process
+Status
 
-When adding or changing a CTO decision:
+Approved
 
-1. Add a new numbered decision entry rather than silently rewriting history.
-2. Include the decision, rationale, and implications.
-3. If a prior decision is superseded, mark it as superseded and link or reference the replacement decision.
-4. Update project-status and next-build documentation when a decision changes priorities.
+Decision
+
+AgraAI will be AI-provider agnostic.
+
+Reason
+
+Avoid vendor lock-in.
+
+Allow best provider selection.
+
+Future scalability.
+
+Final Choice
+
+Common Provider Interface.
+
+Impact
+
+Critical
+
+---
+
+===============================================================================
+DECISION 003
+===============================================================================
+
+Title
+
+Zero Budget AI Strategy
+
+Status
+
+Approved
+
+Decision
+
+Primary Provider
+
+Groq
+
+Secondary Provider
+
+Mistral
+
+Optional
+
+Gemini
+
+Reason
+
+Free
+
+Fast
+
+Reliable
+
+Excellent APIs
+
+Developer Friendly
+
+Impact
+
+Critical
+
+---
+
+===============================================================================
+DECISION 004
+===============================================================================
+
+Title
+
+Technology Stack
+
+Status
+
+Approved
+
+Decision
+
+Frontend
+
+Next.js
+
+React
+
+TypeScript
+
+Tailwind
+
+shadcn/ui
+
+Backend
+
+Supabase
+
+Prisma
+
+PostgreSQL
+
+Deployment
+
+Cloudflare
+
+Vercel
+
+Reason
+
+Modern
+
+Scalable
+
+Enterprise Ready
+
+Developer Friendly
+
+Impact
+
+High
+
+---
+
+===============================================================================
+DECISION 005
+===============================================================================
+
+Title
+
+Architecture Style
+
+Status
+
+Approved
+
+Decision
+
+Layered Architecture
+
+Presentation
+
+↓
+
+Application
+
+↓
+
+Business
+
+↓
+
+AI Layer
+
+↓
+
+Providers
+
+↓
+
+Database
+
+Reason
+
+Scalability
+
+Maintainability
+
+Clean separation
+
+Impact
+
+Critical
+
+---
+
+===============================================================================
+DECISION 006
+===============================================================================
+
+Title
+
+Development Methodology
+
+Status
+
+Approved
+
+Decision
+
+Build → CTO Review → Merge → Update Memory
+
+Reason
+
+Maintain quality.
+
+Avoid uncontrolled development.
+
+Keep repository synchronized.
+
+Impact
+
+High
+
+---
+
+===============================================================================
+DECISION 007
+===============================================================================
+
+Title
+
+Database Philosophy
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 04.)
+
+---
+
+===============================================================================
+DECISION 008
+===============================================================================
+
+Title
+
+AI Provider Foundation
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 05.)
+
+---
+
+===============================================================================
+DECISION 009
+===============================================================================
+
+Title
+
+Intent Engine Architecture
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 06.)
+
+---
+
+===============================================================================
+DECISION 010
+===============================================================================
+
+Title
+
+Prompt Optimization Engine
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 07.)
+
+---
+
+===============================================================================
+DECISION 011
+===============================================================================
+
+Title
+
+Multi-AI Router
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 08.)
+
+---
+
+===============================================================================
+DECISION 012
+===============================================================================
+
+Title
+
+Agent Builder Architecture
+
+Status
+
+Pending
+
+Decision
+
+(To be added after Build 09.)
+
+---
+
+# Decision Rules
+
+Every decision must include:
+
+Problem
+
+Alternatives
+
+Reasoning
+
+Final Choice
+
+Expected Impact
+
+Approval Status
+
+Related Build
+
+---
+
+End of 05_CTO_DECISIONS.md
