@@ -1,4 +1,4 @@
-# AgraAI Static Context
+# AgraAI Project Context
 Version: 1.0
 Status: Official
 Document Type: Permanent Engineering Context
@@ -602,4 +602,4 @@ The platform should remain AI-provider agnostic, engineering-driven, and globall
 
 ---
 
-End of 01_STATIC_CONTEXT.md
+End of 01_PROJECT_CONTEXT.md
