@@ -1,57 +1,247 @@
-# Coding Standards
+# AgraAI Coding Standards
 
-## TypeScript Standards
+Version: 1.0
 
-- Use TypeScript for application code.
-- Prefer explicit exported types at module boundaries.
-- Use Zod or equivalent schema validation for external inputs and runtime configuration.
-- Avoid `any` unless the boundary is genuinely unknown and the value is immediately narrowed.
-- Keep API response shapes consistent through shared response helpers.
+Status: Official
 
-## Next.js Standards
+Document Type: Permanent Engineering Standards
 
-- Prefer server components by default.
-- Use client components only when interactivity, browser APIs, or hooks require them.
-- Keep route handlers thin and delegate business logic to services.
-- Keep layouts focused on composition, data loading, and guard boundaries.
-- Use middleware for cross-cutting request concerns, but keep authorization enforcement available server-side too.
+Owner: AgraAI Engineering
 
-## Module Boundary Standards
+---
 
-- `features/*` should contain product or domain feature code.
-- `services/*` should expose application service facades.
-- `lib/*` should contain reusable infrastructure utilities.
-- `config/*` should centralize constants, runtime toggles, navigation, and environment access.
-- `components/*` should contain reusable UI and layout primitives.
-- `database/*` should isolate database client setup and persistence utilities.
-- `ai/*` should remain provider-neutral or re-export AI configuration until provider adapters exist.
+# Purpose
 
-## React And UI Standards
+This document defines the mandatory coding standards for every engineer and AI coding assistant contributing to AgraAI.
 
-- Prefer small, composable components.
-- Keep shared UI primitives generic and product-agnostic.
-- Keep feature-specific UI inside feature modules unless it is truly reusable.
-- Preserve accessibility semantics for forms, navigation, buttons, labels, and error states.
-- Keep styling consistent with Tailwind and existing utility patterns.
+These standards ensure consistency, maintainability, scalability, and production-quality engineering.
 
-## Auth Standards
+---
 
-- Consume auth through `services/auth/*` and `hooks/auth/*`.
-- Keep Supabase implementation details behind auth service modules.
-- Protect sensitive route families through middleware and server-side guards.
-- Do not assume role names are permissions.
-- Keep service-role operations server-only.
+# General Principles
 
-## Error, Logging, And API Standards
+Write production-quality code.
 
-- Use typed errors for expected failure modes.
-- Return consistent API response envelopes.
-- Log structured JSON-compatible entries.
-- Include request IDs where available.
-- Never log secrets, tokens, cookies, or raw sensitive payloads.
+Prefer simplicity over cleverness.
 
-## Documentation Standards
+Prefer maintainability over shortcuts.
 
-- Update memory files when changing architecture, known state, or build priorities.
-- Keep documentation precise and current.
-- Mark deferred capabilities explicitly rather than implying they exist.
+Prefer readability over unnecessary abstraction.
+
+Avoid duplicated logic.
+
+Design for long-term scalability.
+
+---
+
+# TypeScript Standards
+
+Use strict TypeScript.
+
+Avoid 'any' unless absolutely necessary.
+
+Prefer explicit types.
+
+Use interfaces and types appropriately.
+
+Enable compile-time safety.
+
+---
+
+# Code Organization
+
+Feature-first architecture.
+
+Small reusable modules.
+
+Single responsibility principle.
+
+Avoid circular dependencies.
+
+Keep shared utilities centralized.
+
+---
+
+# Naming Conventions
+
+Components → PascalCase
+
+Hooks → useCamelCase
+
+Functions → camelCase
+
+Variables → camelCase
+
+Constants → UPPER_SNAKE_CASE
+
+Environment Variables → UPPER_SNAKE_CASE
+
+Database Tables → snake_case
+
+API Routes → kebab-case
+
+---
+
+# React Standards
+
+Prefer Server Components when appropriate.
+
+Use Client Components only when necessary.
+
+Keep components focused.
+
+Avoid deeply nested component trees.
+
+Reuse UI components.
+
+---
+
+# API Standards
+
+REST-first design.
+
+Consistent response format.
+
+Validate every request.
+
+Return meaningful error messages.
+
+Use proper HTTP status codes.
+
+Never expose sensitive information.
+
+---
+
+# Database Standards
+
+Use Prisma ORM.
+
+Use UUID primary keys.
+
+Normalize schema where appropriate.
+
+Add indexes for frequently queried fields.
+
+Support safe migrations.
+
+Design for scalability.
+
+---
+
+# Validation Standards
+
+Validate all external inputs.
+
+Use Zod for runtime validation.
+
+Never trust client input.
+
+Fail fast on invalid data.
+
+---
+
+# Error Handling
+
+Handle all expected errors.
+
+Log unexpected errors.
+
+Provide user-friendly error responses.
+
+Avoid silent failures.
+
+---
+
+# Security Standards
+
+Never commit secrets.
+
+Use environment variables.
+
+Encrypt sensitive data.
+
+Follow least privilege principles.
+
+Design for RBAC compatibility.
+
+Prepare for audit logging.
+
+---
+
+# Performance Standards
+
+Optimize database queries.
+
+Prefer server-side rendering.
+
+Lazy-load when appropriate.
+
+Avoid unnecessary re-renders.
+
+Minimize client-side JavaScript.
+
+---
+
+# Documentation Standards
+
+Document important architectural decisions.
+
+Keep repository documentation updated.
+
+Update memory files after major builds.
+
+Repository documentation is the source of truth.
+
+---
+
+# Testing Standards
+
+Write testable code.
+
+Support unit testing.
+
+Support integration testing.
+
+Support end-to-end testing.
+
+Maintain CI compatibility.
+
+---
+
+# Git Standards
+
+Small focused commits.
+
+Clear commit messages.
+
+One build per pull request.
+
+Pass lint before merge.
+
+Pass type checking before merge.
+
+---
+
+# Final Rule
+
+Every contribution to AgraAI must improve one or more of the following:
+
+Scalability
+
+Maintainability
+
+Security
+
+Performance
+
+Reliability
+
+Developer Experience
+
+Documentation
+
+Code Quality
+
+---
+
+End of CODING_STANDARDS.md
