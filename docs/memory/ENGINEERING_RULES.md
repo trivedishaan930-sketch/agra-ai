@@ -1,4 +1,4 @@
-# AgraAI Session Bootstrap
+# AgraAI Session ENGINEERING_RULES
 Version: 1.0
 Status: Official
 Document Type: AI Engineering Bootstrap
@@ -60,7 +60,7 @@ docs/memory/README.md
 
 ↓
 
-docs/memory/01_STATIC_CONTEXT.md
+docs/memory/01_PROJECT_CONTEXT.md
 
 ↓
 
@@ -464,4 +464,4 @@ Never ignore repository memory.
 
 ---
 
-End of 00_SESSION_BOOTSTRAP.md
+End of 00_SESSION_ENGINEERING_RULES.md
