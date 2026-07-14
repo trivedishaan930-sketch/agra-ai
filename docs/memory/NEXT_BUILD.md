@@ -1,94 +1,395 @@
-# Next Build
+# AgraAI Next Build
 
-## Recommended Priority
+Version: 1.0
+Status: Dynamic
+Document Type: Next Engineering Build
 
-Before adding product features, stabilize the platform foundation so the application can be installed, checked, built, and protected reliably.
+---
 
-## Build 1: Repository Health And Manifest Validity
+# Purpose
 
-### Goal
+This document defines the next engineering objective for AgraAI.
 
-Ensure dependency and script tooling works reliably.
+Every AI coding assistant and engineer must read this document after understanding the current project state.
 
-### Tasks
+This document contains only the next approved engineering target.
 
-- Validate `package.json` structure.
-- Remove duplicated or malformed dependency declarations if confirmed.
-- Verify package manager install behavior.
-- Run lint, typecheck, and build commands.
+After successful completion of a build, this file must be updated for the following build.
 
-### Acceptance Criteria
+---
 
-- Package manifest parses correctly.
-- Dependencies and devDependencies are deterministic.
-- Node and npm engine declarations are valid.
-- `npm run lint`, `npm run typecheck`, and `npm run build` can run or have documented environment blockers.
+# Current Approved Build
 
-## Build 2: Middleware And Route Protection Stabilization
+Build Number
 
-### Goal
+Build 04
 
-Make request handling, security headers, request IDs, Supabase session refresh, and protected-route redirects reliable.
+Name
 
-### Tasks
+Enterprise Database Architecture
 
-- Reconcile overlapping middleware implementations.
-- Preserve request ID propagation.
-- Apply security headers to all relevant responses.
-- Preserve Supabase auth session refresh behavior.
-- Redirect unauthenticated protected-route users to `/login?next=...`.
-- Add focused tests or verification notes for public and protected route behavior.
+Priority
 
-### Acceptance Criteria
+Critical
 
-- Middleware compiles.
-- Public routes remain accessible.
-- Protected routes redirect unauthenticated users.
-- Security headers are applied consistently.
-- Request IDs are present on responses.
+Engineering Phase
 
-## Build 3: Auth Completion Pass
+Core Platform Foundation
 
-### Goal
+Status
 
-Move authentication from scaffold to reliable foundation behavior.
+Pending
 
-### Tasks
+---
 
-- Verify Supabase login and signup flows.
-- Confirm Google OAuth callback behavior.
-- Confirm passwordless email OTP behavior.
-- Add clear auth error handling and user feedback.
-- Confirm server-side guard behavior in protected layouts.
+# Build Objective
 
-### Acceptance Criteria
+Design and implement a production-ready, enterprise-grade database architecture for AgraAI using Prisma ORM.
 
-- Users can start and complete supported auth flows in configured environments.
-- Protected layouts fail closed.
-- Auth state is available through server and client helpers.
+The architecture must support future scaling without requiring major redesign.
 
-## Build 4: AI Foundation Design Document
+The database should remain modular, extensible, maintainable, and provider-independent.
 
-### Goal
+---
 
-Define the first implementable AI boundary before writing provider code.
+# Scope
 
-### Tasks
+This build is limited to database architecture only.
 
-- Define provider-neutral AI service interfaces.
-- Define initial evaluation requirements.
-- Define logging and cost metadata requirements.
-- Define first candidate AI use case only after product discovery.
+Included
 
-### Acceptance Criteria
+• Prisma Production Schema
 
-- AI architecture is documented before implementation.
-- Product features remain provider-neutral.
-- Safety, evaluation, and cost controls are included in the design.
+• Database Relationships
 
-## Do Not Start Yet
+• Entity Modeling
 
-- Agriculture workflow implementation.
-- Marketplace or agent builder implementation.
-- Multi-tenant data model expansion without requirements.
-- Production AI recommendations without evaluation and review workflows.
+• Index Strategy
+
+• Migration Strategy
+
+• Soft Delete Strategy
+
+• UUID Primary Keys
+
+• Audit Log Foundation
+
+• API Key Storage
+
+• AI Provider Registry
+
+• Billing Foundation
+
+• Usage Tracking
+
+• Conversation Storage
+
+• Agent Storage
+
+• Workflow Storage
+
+• Organization Support
+
+Not Included
+
+❌ Business Logic
+
+❌ API Implementation
+
+❌ UI
+
+❌ AI Chat
+
+❌ AI Routing
+
+❌ Workflow Engine
+
+❌ Agent Execution
+
+❌ Marketplace
+
+❌ Prompt Engine
+
+Those belong to future builds.
+
+---
+
+# Required Database Models
+
+The build must include scalable production models for:
+
+Users
+
+Organizations
+
+Projects
+
+Memberships
+
+Conversations
+
+Messages
+
+AI Providers
+
+API Keys
+
+Workflows
+
+Workflow Runs
+
+Agents
+
+Agent Runs
+
+Prompt Templates
+
+Usage Records
+
+Billing
+
+Invoices
+
+Subscriptions
+
+Audit Logs
+
+System Settings
+
+Future models should be easy to extend.
+
+---
+
+# Architecture Requirements
+
+Database must support:
+
+Multi-user
+
+Multi-organization
+
+Multi-project
+
+Multiple AI providers
+
+Future SaaS subscriptions
+
+Enterprise permissions
+
+Future agent execution
+
+High scalability
+
+Future analytics
+
+Future observability
+
+---
+
+# Engineering Constraints
+
+Do NOT modify:
+
+Authentication
+
+Middleware
+
+Session Management
+
+Repository Structure
+
+Configuration System
+
+Logger
+
+Health Endpoint
+
+Security Foundation
+
+Build 04 must extend existing architecture.
+
+Nothing completed previously should be rebuilt.
+
+---
+
+# Prisma Guidelines
+
+Use UUID primary keys.
+
+Use proper indexes.
+
+Use explicit relations.
+
+Use timestamps.
+
+Use soft deletes where appropriate.
+
+Avoid duplicated fields.
+
+Avoid premature optimization.
+
+Design for millions of records.
+
+---
+
+# Naming Standards
+
+Tables
+
+snake_case
+
+Enums
+
+PascalCase
+
+Relations
+
+Explicit
+
+IDs
+
+UUID
+
+Dates
+
+UTC
+
+Field names
+
+camelCase (Prisma)
+
+Database naming should remain predictable.
+
+---
+
+# Deliverables
+
+Successful completion requires:
+
+Complete Prisma Schema
+
+Migration Files
+
+Seed Structure
+
+Database Documentation
+
+Relationship Diagram Ready
+
+Production-ready Naming
+
+Scalable Indexes
+
+Audit Foundation
+
+Usage Foundation
+
+Billing Foundation
+
+Organization Support
+
+---
+
+# Success Criteria
+
+Build 04 is successful only if:
+
+Prisma validates successfully.
+
+Migration builds successfully.
+
+Schema is scalable.
+
+Relations are correct.
+
+Indexes are appropriate.
+
+Architecture supports future builds.
+
+Documentation updated.
+
+No breaking changes introduced.
+
+---
+
+# CTO Review Checklist
+
+Architecture
+
+Scalability
+
+Normalization
+
+Maintainability
+
+Security
+
+Performance
+
+Naming
+
+Extensibility
+
+Migration Safety
+
+Documentation
+
+Production Readiness
+
+---
+
+# Completion Tasks
+
+After Build 04 completes:
+
+Update
+
+docs/memory/02_CURRENT_STATE.md
+
+Update
+
+docs/memory/03_BUILD_HISTORY.md
+
+Update
+
+docs/memory/05_CTO_DECISIONS.md (if architectural decisions were made)
+
+Update
+
+docs/memory/06_PROJECT_STATUS.md
+
+Then prepare:
+
+Build 05
+
+---
+
+# Next Planned Build
+
+Build Number
+
+Build 05
+
+Name
+
+AI Provider Foundation
+
+Objective
+
+Create the provider abstraction layer that supports:
+
+Groq
+
+Mistral
+
+Gemini
+
+Future providers
+
+without changing application business logic.
+
+This build will establish the AI provider interface that all future AI integrations will use.
+
+---
+
+End of 04_NEXT_BUILD.md
