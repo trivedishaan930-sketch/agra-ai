@@ -1,8 +1,9 @@
 # AgraAI Next Build
 
-Version: 1.0
+Version: 1.3
 Status: Dynamic
 Document Type: Next Engineering Build
+Last Updated: 2026-07-15
 
 ---
 
@@ -22,19 +23,19 @@ After successful completion of a build, this file must be updated for the follow
 
 Build Number
 
-Build 04
+Build 07
 
 Name
 
-Enterprise Database Architecture
+Prompt Optimization Engine
 
 Priority
 
-Critical
+High
 
 Engineering Phase
 
-Core Platform Foundation
+Core AI Foundation
 
 Status
 
@@ -44,145 +45,85 @@ Pending
 
 # Build Objective
 
-Design and implement a production-ready, enterprise-grade database architecture for AgraAI using Prisma ORM.
+Create the provider-independent Prompt Optimization Engine foundation.
 
-The architecture must support future scaling without requiring major redesign.
+The Prompt Optimization Engine must transform user input, intent metadata, task signals, constraints, and context into structured provider-ready prompt plans without calling providers directly and without implementing chat, workflow execution, agents, memory retrieval, tools, vector search, embeddings, or RAG.
 
-The database should remain modular, extensible, maintainable, and provider-independent.
+The architecture must consume the Build 06 Intent Engine output and remain compatible with the Build 05 AI Engine provider interface.
 
 ---
 
 # Scope
 
-This build is limited to database architecture only.
+This build is limited to prompt optimization architecture only.
 
 Included
 
-• Prisma Production Schema
+• Prompt optimization module structure
 
-• Database Relationships
+• Prompt plan types
 
-• Entity Modeling
+• Prompt template contracts
 
-• Index Strategy
+• Prompt normalization utilities
 
-• Migration Strategy
+• Constraint-aware prompt shaping
 
-• Soft Delete Strategy
+• Intent-aware prompt planning
 
-• UUID Primary Keys
+• Provider-independent prompt output model
 
-• Audit Log Foundation
+• Validation schemas
 
-• API Key Storage
-
-• AI Provider Registry
-
-• Billing Foundation
-
-• Usage Tracking
-
-• Conversation Storage
-
-• Agent Storage
-
-• Workflow Storage
-
-• Organization Support
+• Documentation updates for current state and build history
 
 Not Included
 
-❌ Business Logic
-
-❌ API Implementation
-
-❌ UI
-
-❌ AI Chat
-
-❌ AI Routing
+❌ AI Agents
 
 ❌ Workflow Engine
 
-❌ Agent Execution
+❌ Memory Engine
 
-❌ Marketplace
+❌ Chat Features
 
-❌ Prompt Engine
+❌ Tool Execution
+
+❌ Vector Database
+
+❌ Embeddings
+
+❌ RAG
+
+❌ Provider Selection
+
+❌ Live Provider API Calls
 
 Those belong to future builds.
 
 ---
 
-# Required Database Models
-
-The build must include scalable production models for:
-
-Users
-
-Organizations
-
-Projects
-
-Memberships
-
-Conversations
-
-Messages
-
-AI Providers
-
-API Keys
-
-Workflows
-
-Workflow Runs
-
-Agents
-
-Agent Runs
-
-Prompt Templates
-
-Usage Records
-
-Billing
-
-Invoices
-
-Subscriptions
-
-Audit Logs
-
-System Settings
-
-Future models should be easy to extend.
-
----
-
 # Architecture Requirements
 
-Database must support:
+The Prompt Optimization Engine must support:
 
-Multi-user
+Intent-aware prompt generation
 
-Multi-organization
+Provider-independent prompt plans
 
-Multi-project
+Future provider-specific formatting adapters
 
-Multiple AI providers
+Future cost optimization
 
-Future SaaS subscriptions
+Future quality scoring
 
-Enterprise permissions
+Future routing hints
 
-Future agent execution
+Future structured output prompts
 
-High scalability
+Safe validation
 
-Future analytics
-
-Future observability
+No provider lock-in
 
 ---
 
@@ -196,119 +137,35 @@ Middleware
 
 Session Management
 
-Repository Structure
-
-Configuration System
-
-Logger
-
-Health Endpoint
+Database Schema unless explicitly required
 
 Security Foundation
 
-Build 04 must extend existing architecture.
+Build 07 must extend existing architecture.
 
 Nothing completed previously should be rebuilt.
 
----
-
-# Prisma Guidelines
-
-Use UUID primary keys.
-
-Use proper indexes.
-
-Use explicit relations.
-
-Use timestamps.
-
-Use soft deletes where appropriate.
-
-Avoid duplicated fields.
-
-Avoid premature optimization.
-
-Design for millions of records.
-
----
-
-# Naming Standards
-
-Tables
-
-snake_case
-
-Enums
-
-PascalCase
-
-Relations
-
-Explicit
-
-IDs
-
-UUID
-
-Dates
-
-UTC
-
-Field names
-
-camelCase (Prisma)
-
-Database naming should remain predictable.
-
----
-
-# Deliverables
-
-Successful completion requires:
-
-Complete Prisma Schema
-
-Migration Files
-
-Seed Structure
-
-Database Documentation
-
-Relationship Diagram Ready
-
-Production-ready Naming
-
-Scalable Indexes
-
-Audit Foundation
-
-Usage Foundation
-
-Billing Foundation
-
-Organization Support
+All prompt planning must remain provider-independent.
 
 ---
 
 # Success Criteria
 
-Build 04 is successful only if:
+Build 07 is successful only if:
 
-Prisma validates successfully.
+TypeScript compiles.
 
-Migration builds successfully.
+Lint passes.
 
-Schema is scalable.
+Project builds successfully.
 
-Relations are correct.
+Prompt contracts are provider-independent.
 
-Indexes are appropriate.
+No agent, workflow, memory, tool, vector, embedding, RAG, provider selection, or chat features are implemented.
 
-Architecture supports future builds.
+Documentation is updated.
 
-Documentation updated.
-
-No breaking changes introduced.
+No breaking changes are introduced.
 
 ---
 
@@ -316,21 +173,19 @@ No breaking changes introduced.
 
 Architecture
 
-Scalability
+Provider Independence
 
-Normalization
+Intent Engine Compatibility
 
 Maintainability
+
+Validation
+
+Extensibility
 
 Security
 
 Performance
-
-Naming
-
-Extensibility
-
-Migration Safety
 
 Documentation
 
@@ -340,27 +195,27 @@ Production Readiness
 
 # Completion Tasks
 
-After Build 04 completes:
+After Build 07 completes:
 
 Update
 
-docs/memory/02_CURRENT_STATE.md
+docs/memory/CURRENT_STATE.md
 
 Update
 
-docs/memory/03_BUILD_HISTORY.md
+docs/memory/BUILD_HISTORY.md
 
 Update
 
-docs/memory/05_CTO_DECISIONS.md (if architectural decisions were made)
+docs/memory/05_CTO_DECISIONS.md if architectural decisions were made
 
 Update
 
-docs/memory/06_PROJECT_STATUS.md
+docs/memory/06_PROJECT_STATUS.md if project status changes
 
 Then prepare:
 
-Build 05
+Build 08
 
 ---
 
@@ -368,28 +223,16 @@ Build 05
 
 Build Number
 
-Build 05
+Build 08
 
 Name
 
-AI Provider Foundation
+Multi-AI Router Foundation
 
 Objective
 
-Create the provider abstraction layer that supports:
-
-Groq
-
-Mistral
-
-Gemini
-
-Future providers
-
-without changing application business logic.
-
-This build will establish the AI provider interface that all future AI integrations will use.
+Create the routing foundation that uses intent and prompt metadata to select providers in a provider-independent, cost-aware, quality-aware architecture.
 
 ---
 
-End of 04_NEXT_BUILD.md
+End of NEXT_BUILD.md
