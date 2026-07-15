@@ -8,12 +8,442 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model UserProfile {
-  id        String   @id @default(uuid()) @db.Uuid
-  email     String   @unique
-  fullName  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+enum MembershipRole {
+  Owner
+  Admin
+  Member
+  Viewer
+}
 
-  @@map("user_profiles")
+enum MembershipStatus {
+  Pending
+  Active
+  Suspended
+  Removed
+}
+
+enum ProjectStatus {
+  Active
+  Archived
+  Suspended
+}
+
+enum ConversationStatus {
+  Active
+  Archived
+}
+
+enum MessageRole {
+  System
+  User
+  Assistant
+  Tool
+}
+
+enum AIProviderType {
+  Groq
+  Mistral
+  Gemini
+  OpenAI
+  Anthropic
+  DeepSeek
+  Cohere
+  Custom
+}
+
+enum ProviderStatus {
+  Active
+  Disabled
+  Deprecated
+}
+
+enum UserAIKeyStatus {
+  Active
+  Disabled
+  Revoked
+  Expired
+}
+
+enum WorkflowStatus {
+  Draft
+  Active
+  Archived
+}
+
+enum AgentStatus {
+  Draft
+  Active
+  Archived
+}
+
+enum BillingStatus {
+  Trialing
+  Active
+  PastDue
+  Canceled
+  Suspended
+}
+
+enum AuditAction {
+  AuthSignIn
+  AuthSignOut
+  AuthSignUp
+  ApiKeyCreated
+  ApiKeyUpdated
+  ApiKeyRevoked
+  ProjectCreated
+  ProjectUpdated
+  ProjectDeleted
+  OrganizationCreated
+  OrganizationUpdated
+  OrganizationDeleted
+  SettingsUpdated
+  AiExecutionCreated
+  AiExecutionCompleted
+  AiExecutionFailed
+}
+
+model User {
+  id             String         @id @default(uuid()) @db.Uuid
+  supabaseUserId String?        @unique @db.Uuid
+  email          String         @unique
+  fullName       String?
+  avatarUrl      String?
+  isActive       Boolean        @default(true)
+  lastLoginAt    DateTime?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+  memberships    Membership[]
+  projects       Project[]      @relation("ProjectOwner")
+  conversations  Conversation[]
+  messages       Message[]
+  userAIKeys     UserAIKey[]
+  invitedMemberships Membership[]   @relation("MembershipInviter")
+  workflows      Workflow[]
+  agents         Agent[]
+  usageRecords   UsageRecord[]
+  auditLogs      AuditLog[]     @relation("AuditActor")
+  billingCreated BillingAccount[] @relation("BillingCreatedBy")
+  apiKeysCreated UserAIKey[]    @relation("ApiKeyCreatedBy")
+
+  @@index([email])
+  @@index([supabaseUserId])
+  @@index([deletedAt])
+  @@map("users")
+}
+
+model Organization {
+  id              String          @id @default(uuid()) @db.Uuid
+  name            String
+  slug            String          @unique
+  description     String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  memberships     Membership[]
+  projects        Project[]
+  billingAccount  BillingAccount?
+  usageRecords    UsageRecord[]
+  userAIKeys      UserAIKey[]
+  auditLogs       AuditLog[]
+  systemSettings  SystemSetting[]
+
+  @@index([slug])
+  @@index([deletedAt])
+  @@map("organizations")
+}
+
+model Membership {
+  id             String           @id @default(uuid()) @db.Uuid
+  userId         String           @db.Uuid
+  organizationId String           @db.Uuid
+  role           MembershipRole   @default(Member)
+  status         MembershipStatus @default(Active)
+  invitedById    String?          @db.Uuid
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  deletedAt      DateTime?
+  user           User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization     @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  invitedBy      User?            @relation("MembershipInviter", fields: [invitedById], references: [id], onDelete: SetNull)
+
+  @@unique([userId, organizationId])
+  @@index([organizationId, role, status])
+  @@index([userId, status])
+  @@index([invitedById])
+  @@index([deletedAt])
+  @@map("memberships")
+}
+
+model Project {
+  id              String          @id @default(uuid()) @db.Uuid
+  organizationId  String          @db.Uuid
+  ownerId         String          @db.Uuid
+  name            String
+  slug            String
+  description     String?
+  status          ProjectStatus   @default(Active)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  organization    Organization    @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  owner           User            @relation("ProjectOwner", fields: [ownerId], references: [id], onDelete: Restrict)
+  conversations   Conversation[]
+  workflows       Workflow[]
+  agents          Agent[]
+  usageRecords    UsageRecord[]
+  auditLogs       AuditLog[]
+  systemSettings  SystemSetting[]
+
+  @@unique([organizationId, slug])
+  @@index([organizationId, status])
+  @@index([ownerId])
+  @@index([deletedAt])
+  @@map("projects")
+}
+
+model Conversation {
+  id             String             @id @default(uuid()) @db.Uuid
+  projectId      String             @db.Uuid
+  userId         String             @db.Uuid
+  title          String?
+  status         ConversationStatus @default(Active)
+  metadata       Json?
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  deletedAt      DateTime?
+  project        Project            @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user           User               @relation(fields: [userId], references: [id], onDelete: Restrict)
+  messages       Message[]
+  usageRecords   UsageRecord[]
+
+  @@index([projectId, updatedAt])
+  @@index([userId, updatedAt])
+  @@index([status])
+  @@index([deletedAt])
+  @@map("conversations")
+}
+
+model Message {
+  id             String       @id @default(uuid()) @db.Uuid
+  conversationId String       @db.Uuid
+  userId         String?      @db.Uuid
+  role           MessageRole
+  content        String
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  usageRecords   UsageRecord[]
+
+  @@index([conversationId, createdAt])
+  @@index([userId, createdAt])
+  @@index([role])
+  @@index([deletedAt])
+  @@map("messages")
+}
+
+model AIProvider {
+  id            String         @id @default(uuid()) @db.Uuid
+  name          String
+  slug          String         @unique
+  type          AIProviderType
+  status        ProviderStatus @default(Active)
+  baseUrl       String?
+  supportsChat  Boolean        @default(true)
+  supportsTools Boolean        @default(false)
+  metadata      Json?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  deletedAt     DateTime?
+  userAIKeys    UserAIKey[]
+  usageRecords  UsageRecord[]
+
+  @@index([type, status])
+  @@index([slug])
+  @@index([deletedAt])
+  @@map("ai_providers")
+}
+
+model UserAIKey {
+  id              String          @id @default(uuid()) @db.Uuid
+  userId          String          @db.Uuid
+  providerId      String          @db.Uuid
+  createdById     String          @db.Uuid
+  organizationId  String?         @db.Uuid
+  name            String
+  encryptedKey    String
+  maskedKey       String
+  status          UserAIKeyStatus @default(Active)
+  lastUsedAt      DateTime?
+  expiresAt       DateTime?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  deletedAt       DateTime?
+  user            User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  provider        AIProvider      @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  createdBy       User            @relation("ApiKeyCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  organization    Organization?   @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+
+  @@unique([userId, providerId, name])
+  @@index([providerId, status])
+  @@index([userId, status])
+  @@index([organizationId])
+  @@index([createdById])
+  @@index([lastUsedAt])
+  @@index([deletedAt])
+  @@map("user_ai_keys")
+}
+
+model Workflow {
+  id             String         @id @default(uuid()) @db.Uuid
+  projectId      String         @db.Uuid
+  createdById    String         @db.Uuid
+  name           String
+  description    String?
+  status         WorkflowStatus @default(Draft)
+  definition     Json
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  deletedAt      DateTime?
+  project        Project        @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy      User           @relation(fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@unique([projectId, name])
+  @@index([projectId, status])
+  @@index([createdById])
+  @@index([deletedAt])
+  @@map("workflows")
+}
+
+model Agent {
+  id             String      @id @default(uuid()) @db.Uuid
+  projectId      String      @db.Uuid
+  createdById    String      @db.Uuid
+  name           String
+  description    String?
+  status         AgentStatus @default(Draft)
+  instructions   String?
+  configuration  Json?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  deletedAt      DateTime?
+  project        Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy      User        @relation(fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@unique([projectId, name])
+  @@index([projectId, status])
+  @@index([createdById])
+  @@index([deletedAt])
+  @@map("agents")
+}
+
+model UsageRecord {
+  id                String       @id @default(uuid()) @db.Uuid
+  organizationId    String       @db.Uuid
+  projectId         String       @db.Uuid
+  userId            String       @db.Uuid
+  providerId        String       @db.Uuid
+  conversationId    String?      @db.Uuid
+  messageId         String?      @db.Uuid
+  requestCount      Int          @default(1)
+  promptTokens      Int          @default(0)
+  completionTokens  Int          @default(0)
+  totalTokens       Int          @default(0)
+  estimatedCost     Decimal      @default(0) @db.Decimal(12, 6)
+  latencyMs         Int?
+  modelName         String?
+  metadata          Json?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  deletedAt         DateTime?
+  organization      Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project           Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user              User         @relation(fields: [userId], references: [id], onDelete: Restrict)
+  provider          AIProvider   @relation(fields: [providerId], references: [id], onDelete: Restrict)
+  conversation      Conversation? @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  message           Message?     @relation(fields: [messageId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([projectId, createdAt])
+  @@index([userId, createdAt])
+  @@index([providerId, createdAt])
+  @@index([conversationId])
+  @@index([messageId])
+  @@index([deletedAt])
+  @@map("usage_records")
+}
+
+model BillingAccount {
+  id             String        @id @default(uuid()) @db.Uuid
+  organizationId String        @unique @db.Uuid
+  createdById    String        @db.Uuid
+  status         BillingStatus @default(Trialing)
+  plan           String        @default("free")
+  billingEmail   String?
+  currency       String        @default("USD")
+  externalCustomerId String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+  organization   Organization  @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdBy      User          @relation("BillingCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@index([status])
+  @@index([createdById])
+  @@index([externalCustomerId])
+  @@index([deletedAt])
+  @@map("billing_accounts")
+}
+
+model AuditLog {
+  id             String       @id @default(uuid()) @db.Uuid
+  organizationId String?      @db.Uuid
+  projectId      String?      @db.Uuid
+  actorUserId    String?      @db.Uuid
+  action         AuditAction
+  entityType     String
+  entityId       String?      @db.Uuid
+  ipAddress      String?
+  userAgent      String?
+  metadata       Json?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  project        Project?     @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  actor          User?        @relation("AuditActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId, createdAt])
+  @@index([projectId, createdAt])
+  @@index([actorUserId, createdAt])
+  @@index([action, createdAt])
+  @@index([entityType, entityId])
+  @@index([deletedAt])
+  @@map("audit_logs")
+}
+
+model SystemSetting {
+  id             String        @id @default(uuid()) @db.Uuid
+  organizationId String?       @db.Uuid
+  projectId      String?       @db.Uuid
+  key            String
+  value          Json
+  description    String?
+  isEncrypted    Boolean       @default(false)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  deletedAt      DateTime?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  project        Project?      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, projectId, key])
+  @@index([organizationId])
+  @@index([projectId])
+  @@index([key])
+  @@index([deletedAt])
+  @@map("system_settings")
 }
