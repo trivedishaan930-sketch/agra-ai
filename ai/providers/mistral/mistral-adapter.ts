@@ -1,0 +1,20 @@
+import { BaseProviderAdapter } from "@/ai/core/base-provider";
+import type {
+  AIProviderCapabilities,
+  AIProviderConfig,
+} from "@/ai/types/provider";
+import { ProviderType } from "@/ai/types/provider";
+
+const capabilities: AIProviderCapabilities = {
+  streaming: true,
+  jsonOutput: true,
+  functionCalling: true,
+  tokenCounting: false,
+  parallelInference: true,
+};
+
+export class MistralAdapter extends BaseProviderAdapter {
+  constructor(config: AIProviderConfig) {
+    super({ ...config, type: ProviderType.Mistral }, capabilities);
+  }
+}

@@ -1,8 +1,9 @@
 # AgraAI Next Build
 
-Version: 1.0
+Version: 1.2
 Status: Dynamic
 Document Type: Next Engineering Build
+Last Updated: 2026-07-15
 
 ---
 
@@ -22,19 +23,19 @@ After successful completion of a build, this file must be updated for the follow
 
 Build Number
 
-Build 04
+Build 06
 
 Name
 
-Enterprise Database Architecture
+Intent Engine Foundation
 
 Priority
 
-Critical
+High
 
 Engineering Phase
 
-Core Platform Foundation
+Core AI Foundation
 
 Status
 
@@ -44,145 +45,81 @@ Pending
 
 # Build Objective
 
-Design and implement a production-ready, enterprise-grade database architecture for AgraAI using Prisma ORM.
+Design and implement the first production-ready intent understanding foundation for AgraAI.
 
-The architecture must support future scaling without requiring major redesign.
+The Intent Engine must classify user intent and prepare structured intent metadata for future prompt optimization, routing, workflow, and agent systems without building those systems yet.
 
-The database should remain modular, extensible, maintainable, and provider-independent.
+The architecture must consume the Build 05 AI Engine through provider-independent interfaces only.
 
 ---
 
 # Scope
 
-This build is limited to database architecture only.
+This build is limited to intent architecture only.
 
 Included
 
-• Prisma Production Schema
+• Intent Engine module structure
 
-• Database Relationships
+• Intent type definitions
 
-• Entity Modeling
+• Intent classification interfaces
 
-• Index Strategy
+• Intent result schema
 
-• Migration Strategy
+• Validation utilities
 
-• Soft Delete Strategy
+• Provider-independent intent service contracts
 
-• UUID Primary Keys
+• Testable deterministic fallback logic where appropriate
 
-• Audit Log Foundation
-
-• API Key Storage
-
-• AI Provider Registry
-
-• Billing Foundation
-
-• Usage Tracking
-
-• Conversation Storage
-
-• Agent Storage
-
-• Workflow Storage
-
-• Organization Support
+• Documentation updates for current state and build history
 
 Not Included
 
-❌ Business Logic
+❌ AI Agents
 
-❌ API Implementation
-
-❌ UI
-
-❌ AI Chat
-
-❌ AI Routing
+❌ Prompt Engine
 
 ❌ Workflow Engine
 
-❌ Agent Execution
+❌ Memory Engine
+
+❌ Chat Features
 
 ❌ Marketplace
 
-❌ Prompt Engine
+❌ Production multi-provider routing policy
+
+❌ Provider API business logic beyond existing AI Engine abstractions
 
 Those belong to future builds.
 
 ---
 
-# Required Database Models
-
-The build must include scalable production models for:
-
-Users
-
-Organizations
-
-Projects
-
-Memberships
-
-Conversations
-
-Messages
-
-AI Providers
-
-API Keys
-
-Workflows
-
-Workflow Runs
-
-Agents
-
-Agent Runs
-
-Prompt Templates
-
-Usage Records
-
-Billing
-
-Invoices
-
-Subscriptions
-
-Audit Logs
-
-System Settings
-
-Future models should be easy to extend.
-
----
-
 # Architecture Requirements
 
-Database must support:
+The Intent Engine must support:
 
-Multi-user
+Provider-independent execution
 
-Multi-organization
+Future prompt optimization
 
-Multi-project
+Future AI routing
 
-Multiple AI providers
+Future workflow selection
 
-Future SaaS subscriptions
+Future agent selection
 
-Enterprise permissions
+Structured intent metadata
 
-Future agent execution
+Confidence scoring
 
-High scalability
+Safe validation
 
-Future analytics
+Extensible intent categories
 
-Future observability
+No provider lock-in
 
 ---
 
@@ -198,117 +135,35 @@ Session Management
 
 Repository Structure
 
-Configuration System
-
-Logger
-
-Health Endpoint
+Database Schema unless explicitly required
 
 Security Foundation
 
-Build 04 must extend existing architecture.
+Build 06 must extend existing architecture.
 
 Nothing completed previously should be rebuilt.
 
----
-
-# Prisma Guidelines
-
-Use UUID primary keys.
-
-Use proper indexes.
-
-Use explicit relations.
-
-Use timestamps.
-
-Use soft deletes where appropriate.
-
-Avoid duplicated fields.
-
-Avoid premature optimization.
-
-Design for millions of records.
-
----
-
-# Naming Standards
-
-Tables
-
-snake_case
-
-Enums
-
-PascalCase
-
-Relations
-
-Explicit
-
-IDs
-
-UUID
-
-Dates
-
-UTC
-
-Field names
-
-camelCase (Prisma)
-
-Database naming should remain predictable.
-
----
-
-# Deliverables
-
-Successful completion requires:
-
-Complete Prisma Schema
-
-Migration Files
-
-Seed Structure
-
-Database Documentation
-
-Relationship Diagram Ready
-
-Production-ready Naming
-
-Scalable Indexes
-
-Audit Foundation
-
-Usage Foundation
-
-Billing Foundation
-
-Organization Support
+All AI calls must go through the Build 05 provider abstraction.
 
 ---
 
 # Success Criteria
 
-Build 04 is successful only if:
+Build 06 is successful only if:
 
-Prisma validates successfully.
+TypeScript compiles.
 
-Migration builds successfully.
+Lint passes.
 
-Schema is scalable.
+Project builds successfully.
 
-Relations are correct.
+Intent contracts are provider-independent.
 
-Indexes are appropriate.
+No agent, prompt, workflow, memory, or chat features are implemented.
 
-Architecture supports future builds.
+Documentation is updated.
 
-Documentation updated.
-
-No breaking changes introduced.
+No breaking changes are introduced.
 
 ---
 
@@ -316,21 +171,17 @@ No breaking changes introduced.
 
 Architecture
 
-Scalability
-
-Normalization
+Provider Independence
 
 Maintainability
+
+Validation
+
+Extensibility
 
 Security
 
 Performance
-
-Naming
-
-Extensibility
-
-Migration Safety
 
 Documentation
 
@@ -340,27 +191,27 @@ Production Readiness
 
 # Completion Tasks
 
-After Build 04 completes:
+After Build 06 completes:
 
 Update
 
-docs/memory/02_CURRENT_STATE.md
+docs/memory/CURRENT_STATE.md
 
 Update
 
-docs/memory/03_BUILD_HISTORY.md
+docs/memory/BUILD_HISTORY.md
 
 Update
 
-docs/memory/05_CTO_DECISIONS.md (if architectural decisions were made)
+docs/memory/05_CTO_DECISIONS.md if architectural decisions were made
 
 Update
 
-docs/memory/06_PROJECT_STATUS.md
+docs/memory/06_PROJECT_STATUS.md if project status changes
 
 Then prepare:
 
-Build 05
+Build 07
 
 ---
 
@@ -368,28 +219,16 @@ Build 05
 
 Build Number
 
-Build 05
+Build 07
 
 Name
 
-AI Provider Foundation
+Prompt Optimization Engine
 
 Objective
 
-Create the provider abstraction layer that supports:
-
-Groq
-
-Mistral
-
-Gemini
-
-Future providers
-
-without changing application business logic.
-
-This build will establish the AI provider interface that all future AI integrations will use.
+Create the prompt optimization foundation that transforms user requests and intent metadata into provider-ready prompts without coupling to any single AI provider.
 
 ---
 
-End of 04_NEXT_BUILD.md
+End of NEXT_BUILD.md
