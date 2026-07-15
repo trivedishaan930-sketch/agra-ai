@@ -1,6 +1,7 @@
 # AgraAI Next Build
 
 Version: 1.3
+Version: 1.2
 Status: Dynamic
 Document Type: Next Engineering Build
 Last Updated: 2026-07-15
@@ -28,6 +29,11 @@ Build 07
 Name
 
 Prompt Optimization Engine
+Build 06
+
+Name
+
+Intent Engine Foundation
 
 Priority
 
@@ -50,6 +56,11 @@ Create the provider-independent Prompt Optimization Engine foundation.
 The Prompt Optimization Engine must transform user input, intent metadata, task signals, constraints, and context into structured provider-ready prompt plans without calling providers directly and without implementing chat, workflow execution, agents, memory retrieval, tools, vector search, embeddings, or RAG.
 
 The architecture must consume the Build 06 Intent Engine output and remain compatible with the Build 05 AI Engine provider interface.
+Design and implement the first production-ready intent understanding foundation for AgraAI.
+
+The Intent Engine must classify user intent and prepare structured intent metadata for future prompt optimization, routing, workflow, and agent systems without building those systems yet.
+
+The architecture must consume the Build 05 AI Engine through provider-independent interfaces only.
 
 ---
 
@@ -75,11 +86,31 @@ Included
 
 • Validation schemas
 
+This build is limited to intent architecture only.
+
+Included
+
+• Intent Engine module structure
+
+• Intent type definitions
+
+• Intent classification interfaces
+
+• Intent result schema
+
+• Validation utilities
+
+• Provider-independent intent service contracts
+
+• Testable deterministic fallback logic where appropriate
+
 • Documentation updates for current state and build history
 
 Not Included
 
 ❌ AI Agents
+
+❌ Prompt Engine
 
 ❌ Workflow Engine
 
@@ -98,6 +129,11 @@ Not Included
 ❌ Provider Selection
 
 ❌ Live Provider API Calls
+❌ Marketplace
+
+❌ Production multi-provider routing policy
+
+❌ Provider API business logic beyond existing AI Engine abstractions
 
 Those belong to future builds.
 
@@ -123,6 +159,26 @@ Future structured output prompts
 
 Safe validation
 
+The Intent Engine must support:
+
+Provider-independent execution
+
+Future prompt optimization
+
+Future AI routing
+
+Future workflow selection
+
+Future agent selection
+
+Structured intent metadata
+
+Confidence scoring
+
+Safe validation
+
+Extensible intent categories
+
 No provider lock-in
 
 ---
@@ -137,6 +193,8 @@ Middleware
 
 Session Management
 
+Repository Structure
+
 Database Schema unless explicitly required
 
 Security Foundation
@@ -146,6 +204,11 @@ Build 07 must extend existing architecture.
 Nothing completed previously should be rebuilt.
 
 All prompt planning must remain provider-independent.
+Build 06 must extend existing architecture.
+
+Nothing completed previously should be rebuilt.
+
+All AI calls must go through the Build 05 provider abstraction.
 
 ---
 
@@ -162,6 +225,20 @@ Project builds successfully.
 Prompt contracts are provider-independent.
 
 No agent, workflow, memory, tool, vector, embedding, RAG, provider selection, or chat features are implemented.
+
+Documentation is updated.
+
+Build 06 is successful only if:
+
+TypeScript compiles.
+
+Lint passes.
+
+Project builds successfully.
+
+Intent contracts are provider-independent.
+
+No agent, prompt, workflow, memory, or chat features are implemented.
 
 Documentation is updated.
 
@@ -196,6 +273,7 @@ Production Readiness
 # Completion Tasks
 
 After Build 07 completes:
+After Build 06 completes:
 
 Update
 
@@ -216,6 +294,7 @@ docs/memory/06_PROJECT_STATUS.md if project status changes
 Then prepare:
 
 Build 08
+Build 07
 
 ---
 
@@ -232,6 +311,15 @@ Multi-AI Router Foundation
 Objective
 
 Create the routing foundation that uses intent and prompt metadata to select providers in a provider-independent, cost-aware, quality-aware architecture.
+Build 07
+
+Name
+
+Prompt Optimization Engine
+
+Objective
+
+Create the prompt optimization foundation that transforms user requests and intent metadata into provider-ready prompts without coupling to any single AI provider.
 
 ---
 
