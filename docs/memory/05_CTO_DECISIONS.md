@@ -548,4 +548,50 @@ Approved
 
 ---
 
+===============================================================================
+DECISION 016
+===============================================================================
+
+Title
+
+Core Engine Architecture Standard
+
+Status
+
+Approved
+
+Related Build
+
+Build 07
+
+Problem
+
+AgraAI will add multiple intelligence engines over time, including prompt optimization, routing, workflow, memory, tools, RAG, agent runtime, and multi-agent orchestration. Without a shared engine contract, future systems could depend on internal implementations, duplicate pipeline patterns, and weaken long-term maintainability.
+
+Alternatives
+
+Allow each engine to define its own architecture
+
+Expose internal pipeline implementations directly to business logic
+
+Standardize every engine around a public interface and replaceable pipeline stages
+
+Reasoning
+
+A consistent engine contract preserves modularity, keeps business logic independent from internal implementations, and makes future engines easier to test, extend, and replace. The Prompt Engine validates this pattern without redesigning previous builds.
+
+Final Choice
+
+Every new core engine must use the architecture: Engine → Public Interface → Pipeline → Stages → Output Model. Each engine must include typed input/output models, centralized configuration, standardized errors, utility layer, and barrel exports. Other systems may consume only public engine interfaces, not internal pipeline implementations.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+---
+
 End of 05_CTO_DECISIONS.md
