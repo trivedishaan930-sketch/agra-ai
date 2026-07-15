@@ -592,6 +592,48 @@ Approval Status
 
 Approved
 
+DECISION 017
+
+Title
+
+Provider-Independent AI Router Foundation
+
+Status
+
+Approved
+
+Related Build
+
+Build 08
+
+Problem
+
+AgraAI needs a central decision layer that can evaluate intent, prompt metadata, provider capabilities, fallback needs, and quality/cost/latency tradeoffs before any future execution engine calls an AI provider.
+
+Alternatives
+
+Select providers directly inside execution code
+
+Embed routing rules inside prompt optimization
+
+Create a provider-independent Router Engine with typed inputs, deterministic strategies, capability matching, scoring, fallback planning, validation, and standardized errors
+
+Reasoning
+
+Direct provider selection inside execution code would couple business logic to providers and make future fallback, enterprise policy, benchmarking, and cost optimization difficult. Embedding routing rules inside Prompt Engine would collapse separate intelligence layers. A standalone Router Engine preserves clean architecture and lets future execution systems consume a RoutingDecision without knowing internal routing implementation details.
+
+Final Choice
+
+Create a provider-independent Router Engine that consumes User Input, IntentAnalysis, and PromptPackage metadata and returns a strongly typed RoutingDecision. The router may use deterministic provider capability profiles and planning metadata, but must not execute providers, stream responses, invoke workflows, call tools, access memory, perform RAG, or run business logic.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
 ---
 
 End of 05_CTO_DECISIONS.md
