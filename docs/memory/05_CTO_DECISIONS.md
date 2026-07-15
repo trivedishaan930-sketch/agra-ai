@@ -504,4 +504,48 @@ Approved
 
 ---
 
+DECISION 015
+
+Title
+
+Provider-Independent Intent Engine Foundation
+
+Status
+
+Approved
+
+Related Build
+
+Build 06
+
+Problem
+
+AgraAI needs an intelligence layer that understands user intent, tasks, context, and goals before prompt optimization, routing, workflows, agents, tools, or provider execution are selected.
+
+Alternatives
+
+Infer intent inside provider adapters
+
+Build intent detection directly into prompt optimization
+
+Use provider-independent Intent Engine with explicit models, deterministic pipeline stages, validation, and future extensibility
+
+Reasoning
+
+Provider adapters must not know product-level intent internals. Embedding intent detection inside prompt optimization would couple two separate architecture layers and make future workflow, agent, memory, tool, and routing integrations harder. A provider-independent Intent Engine keeps user understanding separate from providers and future downstream systems.
+
+Final Choice
+
+Create a standalone Intent Engine module with typed intent, task, goal, context, and analysis models; deterministic classification, task detection, context extraction, and goal detection; a modular pipeline; centralized configuration; Zod validation; and standardized errors.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+---
+
 End of 05_CTO_DECISIONS.md
