@@ -410,4 +410,98 @@ Related Build
 
 ---
 
+===============================================================================
+DECISION 013
+===============================================================================
+
+Title
+
+Enterprise Database Foundation
+
+Status
+
+Approved
+
+Related Build
+
+Build 04
+
+Problem
+
+AgraAI requires a scalable data model that can support multi-user, multi-organization, multi-project, AI provider, usage, billing, and audit capabilities without redesigning the platform later.
+
+Alternatives
+
+Minimal user-only schema
+
+Feature-specific isolated tables
+
+Provider-specific persistence model
+
+Enterprise normalized Prisma schema
+
+Reasoning
+
+A minimal schema would force major redesign when organizations, billing, audit logs, usage tracking, workflows, and provider keys are introduced. Feature-specific tables would duplicate relationships and make enterprise permissions harder. Provider-specific persistence would create vendor lock-in. A normalized Prisma schema with UUIDs, explicit relations, indexes, and soft-delete fields best supports long-term enterprise scalability.
+
+Final Choice
+
+Use Prisma with a normalized PostgreSQL schema centered on users, organizations, memberships, projects, conversations, messages, provider registry records, user AI keys, workflows, agents, usage records, billing accounts, audit logs, and system settings.
+
+Expected Impact
+
+High
+
+Approval Status
+
+Approved
+
+---
+
+===============================================================================
+DECISION 014
+===============================================================================
+
+Title
+
+Provider-Independent AI Engine Foundation
+
+Status
+
+Approved
+
+Related Build
+
+Build 05
+
+Problem
+
+AgraAI must support Groq, OpenAI, Anthropic Claude, Google Gemini, Mistral, and future providers without forcing application or business logic to change whenever providers are added, removed, or routed differently.
+
+Alternatives
+
+Direct provider SDK calls throughout application code
+
+Single-provider abstraction around only Groq
+
+Provider-independent AI engine with common interfaces, registry, factory, adapters, configuration, and standardized errors
+
+Reasoning
+
+Direct SDK calls would create vendor lock-in and duplicate provider logic. A single-provider abstraction would not support AgraAI's long-term multi-AI routing strategy. A provider-independent AI engine keeps provider-specific logic inside adapters, centralizes configuration, and prepares the architecture for fallback, routing, parallel inference, streaming, function calling, and structured output.
+
+Final Choice
+
+Create a provider-independent AI Engine with an AIProvider interface, ProviderType enum, ProviderFactory, ProviderRegistry, standardized provider errors, centralized provider configuration, and adapters for Groq, OpenAI, Claude, Gemini, and Mistral.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+---
+
 End of 05_CTO_DECISIONS.md
