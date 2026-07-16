@@ -1,5 +1,6 @@
 import type { TruthIntelligenceEngine } from "@/truth/interfaces";
 import { TruthPipeline } from "@/truth/pipeline";
+import type { TruthAnalysisInput, TruthPackage } from "@/truth/types";
 import type { TruthInput, TruthIntelligencePackage } from "@/truth/types";
 
 export class DefaultTruthIntelligenceEngine implements TruthIntelligenceEngine {
@@ -9,6 +10,7 @@ export class DefaultTruthIntelligenceEngine implements TruthIntelligenceEngine {
     this.pipeline = pipeline;
   }
 
+  analyze(input: TruthAnalysisInput): TruthPackage {
   analyze(input: TruthInput): TruthIntelligencePackage {
     return this.pipeline.analyze(input);
   }
