@@ -771,3 +771,49 @@ High
 Approval Status
 
 Approved
+
+---
+
+===============================================================================
+DECISION 021
+===============================================================================
+
+Title
+
+Truth Intelligence Internal Intelligence Framework Standard
+
+Status
+
+Approved
+
+Related Build
+
+Build 09B Part 2
+
+Problem
+
+Future Truth Intelligence capabilities require analyzers, research modules, indexes, reports, plugins, hooks, and observability to evolve without modifying the stable TruthIntelligenceEngine.analyze() contract or coupling future systems to provider execution, external APIs, or internal pipeline details.
+
+Alternatives
+
+Add future capabilities directly inside existing analyzers
+
+Create feature-specific contracts per capability
+
+Create a reusable internal intelligence framework with analyzer, registry, extension, plugin, index, report, research, hook, and observability contracts
+
+Reasoning
+
+Adding future capabilities directly inside existing analyzers would create coupling and duplicate lifecycle logic. Feature-specific contracts would fragment the architecture. A reusable framework keeps analyzers replaceable, metadata-driven, plugin-ready, index/report-ready, and provider-independent while preserving public interfaces and leaving all algorithms unimplemented until explicitly approved.
+
+Final Choice
+
+Use a reusable architecture-only internal intelligence framework centered on a common analyzer contract, abstract analyzer base, analyzer registry, research placeholders, extension API, plugin contracts, unlimited index contracts, report contracts, observability placeholders, and innovation hooks.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
