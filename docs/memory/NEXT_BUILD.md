@@ -1,6 +1,7 @@
 # AgraAI Next Build
 
 Version: 1.8
+Version: 1.7
 Status: Dynamic
 Document Type: Next Engineering Build
 Last Updated: 2026-07-16
@@ -34,6 +35,7 @@ Pending
 # Build Objective
 
 Extend the Truth Intelligence Engine only through the provider-independent orchestration, lifecycle, centralized configuration, reusable validation framework, reusable scoring architecture, stable analyze() contract, and extend-only TruthPackage output strategy established in Build 09A and Build 09B Part 1.
+Extend the Truth Intelligence Engine only through the provider-independent foundation, centralized configuration, reusable validation framework, reusable scoring architecture, stable analyze() contract, and extend-only TruthPackage output strategy established in Build 09A.
 
 ---
 
@@ -45,11 +47,13 @@ Included
 • Preserve TruthEngineOrchestrator lifecycle boundaries
 • Extend internal orchestration stages only through replaceable components
 • Preserve TruthExecutionContext, TruthAnalysisContext, and TruthPipelineContext compatibility
+• Extend internal stages only through replaceable pipeline components
 • Preserve typed TruthInput and TruthPackage compatibility
 • Preserve centralized configuration in config/truth.config.ts
 • Preserve reusable validation and scoring frameworks
 • Preserve provider independence
 • Preserve immutable TruthPackage outputs
+• Preserve security and performance extension boundaries
 • Preserve public-only barrel exports
 
 Not Included
@@ -77,6 +81,7 @@ Not Included
 # Success Criteria
 
 Build 09B Part 2 is successful only if:
+Build 09B is successful only if:
 
 • TypeScript compiles
 • Lint passes
