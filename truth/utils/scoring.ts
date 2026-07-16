@@ -1,5 +1,6 @@
 import { truthConfig } from "@/truth/config";
 import { ReliabilityGrade, TruthLevel, TruthRiskLevel } from "@/truth/types";
+import { ReliabilityGrade, TruthRiskLevel } from "@/truth/types";
 
 export function clampScore(score: number): number {
   if (Number.isNaN(score)) return truthConfig.defaultScore;
@@ -7,6 +8,7 @@ export function clampScore(score: number): number {
 }
 
 export function averageScores(scores: readonly number[]): number {
+export function averageScores(scores: number[]): number {
   if (scores.length === 0) return truthConfig.defaultScore;
   return clampScore(scores.reduce((total, score) => total + score, 0) / scores.length);
 }

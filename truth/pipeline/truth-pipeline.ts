@@ -19,6 +19,16 @@ import type {
   WeaknessAnalyzer,
 } from "@/truth/analyzers";
 import type { TruthAnalysisInput, TruthPackage } from "@/truth/types";
+import {
+  ConfidenceAnalyzer,
+  EvidenceAnalyzer,
+  ImprovementAnalyzer,
+  ReliabilityAnalyzer,
+  RiskAnalyzer,
+  TruthAnalyzer,
+  WeaknessAnalyzer,
+} from "@/truth/analyzers";
+import type { TruthInput, TruthIntelligencePackage } from "@/truth/types";
 import { TruthValidator } from "@/truth/validators";
 import { TruthInputNormalizer } from "./normalizer";
 import { TruthPackageBuilder } from "./package-builder";
@@ -58,11 +68,19 @@ export class TruthPipeline {
       strengthAnalyzer: dependencies?.strengthAnalyzer ?? new DefaultStrengthAnalyzer(),
       explanationAnalyzer: dependencies?.explanationAnalyzer ?? new DefaultExplanationAnalyzer(),
       improvementAnalyzer: dependencies?.improvementAnalyzer ?? new DefaultImprovementAnalyzer(),
+      truthAnalyzer: dependencies?.truthAnalyzer ?? new TruthAnalyzer(),
+      evidenceAnalyzer: dependencies?.evidenceAnalyzer ?? new EvidenceAnalyzer(),
+      confidenceAnalyzer: dependencies?.confidenceAnalyzer ?? new ConfidenceAnalyzer(),
+      riskAnalyzer: dependencies?.riskAnalyzer ?? new RiskAnalyzer(),
+      reliabilityAnalyzer: dependencies?.reliabilityAnalyzer ?? new ReliabilityAnalyzer(),
+      weaknessAnalyzer: dependencies?.weaknessAnalyzer ?? new WeaknessAnalyzer(),
+      improvementAnalyzer: dependencies?.improvementAnalyzer ?? new ImprovementAnalyzer(),
       packageBuilder: dependencies?.packageBuilder ?? new TruthPackageBuilder(),
     };
   }
 
   analyze(input: TruthAnalysisInput): TruthPackage {
+  analyze(input: TruthInput): TruthIntelligencePackage {
     const parsedInput = this.dependencies.validator.validateInput(input);
     const normalizedInput = this.dependencies.normalizer.normalize(parsedInput);
     const truth = this.dependencies.truthAnalyzer.analyze(normalizedInput);
@@ -75,6 +93,8 @@ export class TruthPipeline {
     const improvement = this.dependencies.improvementAnalyzer.analyze(weakness);
     const explanation = this.dependencies.explanationAnalyzer.analyze(evidence, confidence, risk, weakness, improvement);
     const truthPackage = this.dependencies.packageBuilder.build({ input: normalizedInput, truth, evidence, confidence, risk, reliability, weakness, strength, explanation, improvement });
+    const improvement = this.dependencies.improvementAnalyzer.analyze(weakness);
+    const truthPackage = this.dependencies.packageBuilder.build({ input: normalizedInput, truth, evidence, confidence, risk, reliability, weakness, improvement });
 
     return this.dependencies.validator.validatePackage(truthPackage);
   }

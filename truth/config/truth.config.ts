@@ -6,6 +6,9 @@ export const TRUTH_CALCULATION_VERSION = "truth-score-foundation-v1";
 export const truthConfig = {
   packageVersion: TRUTH_PACKAGE_VERSION,
   calculationVersion: TRUTH_CALCULATION_VERSION,
+import { ReliabilityGrade, TruthRiskLevel } from "@/truth/types";
+
+export const truthConfig = {
   minimumUserRequestLength: 2,
   defaultScore: 0.5,
   completenessWeights: {
