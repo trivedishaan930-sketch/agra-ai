@@ -1271,9 +1271,7 @@ Truth Intelligence Engine internal intelligence framework prepared for CTO revie
 
 ---
 
-===============================================================================
 BUILD 09 FINALIZATION
-===============================================================================
 
 Build Number
 
