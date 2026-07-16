@@ -1,10 +1,9 @@
 # AgraAI Next Build
 
-Version: 1.5
-Version: 1.4
+Version: 1.6
 Status: Dynamic
 Document Type: Next Engineering Build
-Last Updated: 2026-07-15
+Last Updated: 2026-07-16
 
 ---
 
@@ -24,16 +23,11 @@ After successful completion of a build, this file must be updated for the follow
 
 Build Number
 
-Build 09
+Build 09B
 
 Name
 
-AI Workspace Foundation
-Build 08
-
-Name
-
-Multi-AI Router Foundation
+Truth Intelligence Engine — Part 2
 
 Priority
 
@@ -41,7 +35,7 @@ High
 
 Engineering Phase
 
-Core Product Foundation
+Core AI Foundation
 
 Status
 
@@ -51,154 +45,85 @@ Pending
 
 # Build Objective
 
-Create the AI Workspace foundation.
+Extend the Truth Intelligence Engine only through the existing provider-independent architecture and stable analyze() contract established in Build 09A.
 
-The workspace should provide the first product-facing foundation that can later surface Intent Engine, Prompt Engine, and Router Engine outputs in a controlled UI architecture without executing providers, chats, agents, workflows, tools, memory, embeddings, or RAG unless explicitly approved.
-
-Build 09 must remain foundation-only unless explicitly expanded.
-Create the provider-independent Multi-AI Router foundation.
-
-The router must consume Intent Engine output and Prompt Engine metadata to prepare future provider selection based on task, quality, latency, cost, context, availability, and user preference.
-
-Build 08 must remain architecture-only unless explicitly expanded.
+Build 09B must remain architecture-compatible unless explicitly expanded.
 
 ---
 
 # Scope
 
-This build is limited to workspace architecture only.
+This build is limited to approved Truth Intelligence Engine evolution.
 
 Included
 
-• Workspace module structure
+• Preserve the TruthIntelligenceEngine public interface
 
-• Workspace page/layout foundation
+• Extend internal stages only through replaceable pipeline components
 
-• Provider-independent UI contracts for future intent, prompt, and routing summaries
+• Preserve typed TruthInput and TruthIntelligencePackage compatibility
 
-• Reusable workspace components
+• Preserve provider independence
 
-• Empty/loading/error states as needed
-
-• Navigation integration if required
-This build is limited to routing architecture only.
-
-Included
-
-• Router module structure
-
-• Router public interface
-
-• Router pipeline abstraction
-
-• Typed router input/output models
-
-• Provider-independent routing signals
-
-• Cost and quality hint models
-
-• Future fallback compatibility
-
-• Validation schemas
-
-• Standardized router errors
-
-• Centralized router configuration
-
-• Documentation updates for current state and build history
+• Preserve validation, configuration, errors, utilities, contracts, and barrel exports
 
 Not Included
 
 ❌ Provider execution
 
-❌ Streaming
+❌ AI inference
 
-❌ Chat execution
+❌ Web search
 
-❌ Workflow execution
+❌ Citation validation
 
-❌ Agents
+❌ Hallucination detection
 
-❌ Memory retrieval
+❌ Cross-model consensus
 
-❌ Tools
+❌ Knowledge freshness checks
 
-❌ Vector database
-❌ Live provider API calls
+❌ Source reliability checks
 
-❌ Provider execution
-
-❌ Streaming
-
-❌ Chat features
+❌ External APIs
 
 ❌ Workflow execution
 
-❌ Agents
-
 ❌ Memory retrieval
-
-❌ Tools
-
-❌ Vector database
-
-❌ Billing implementation
-
-❌ Production routing policy execution
-❌ Embeddings
 
 ❌ RAG
 
-❌ Billing implementation
+❌ Agents
 
-❌ Production provider policy beyond routing foundation contracts
+❌ Streaming
 
-Those belong to future builds.
+Those belong to future approved builds only.
 
 ---
 
 # Architecture Requirements
 
-The AI Workspace foundation must support:
+The Truth Intelligence Engine must continue to support:
 
-Provider-independent UI contracts
+Provider-independent contracts
 
-Future Intent Engine output display
+Stable analyze() public interface
 
-Future Prompt Engine output display
+Structured input models
 
-Future Router Engine decision display
+Unified Truth Intelligence Package output
 
-Future authenticated workspace usage
+Replaceable validation, truth, evidence, confidence, risk, reliability, weakness, and improvement stages
 
-Reusable component architecture
+Centralized configuration
 
-Safe loading and error states
+Standardized errors
 
-No provider execution
+Utility layer
 
-No business logic execution
-The Multi-AI Router must support:
+No provider-specific code
 
-Provider-independent routing decisions
-
-Intent-aware routing signals
-
-Prompt-aware routing metadata
-
-Future cost optimization
-
-Future quality optimization
-
-Future latency optimization
-
-Future provider fallback
-
-Future user preference support
-
-Safe validation
-
-No provider lock-in
+No external execution behavior
 
 ---
 
@@ -210,21 +135,23 @@ Authentication internals
 
 Middleware behavior
 
-Session Management
+Session management
 
-Database Schema unless explicitly required
+Database schema unless explicitly required
 
-Security Foundation
+Security foundation
 
-Build 09 must extend existing architecture.
+AI provider adapter behavior
+
+Intent Engine internals
+
+Prompt Engine internals
+
+Router Engine internals
+
+Build 09B must extend existing architecture.
 
 Nothing completed previously should be rebuilt.
-
-Build 08 must extend existing architecture.
-
-Nothing completed previously should be rebuilt.
-
-All routing decisions must remain provider-independent.
 
 No AI calls may be introduced unless explicitly requested.
 
@@ -232,8 +159,7 @@ No AI calls may be introduced unless explicitly requested.
 
 # Success Criteria
 
-Build 09 is successful only if:
-Build 08 is successful only if:
+Build 09B is successful only if:
 
 TypeScript compiles.
 
@@ -241,12 +167,9 @@ Lint passes.
 
 Project builds successfully.
 
-Workspace contracts remain provider-independent.
+Truth Intelligence Engine contracts remain provider-independent.
 
-No provider execution, agent, workflow, memory, tool, vector, embedding, RAG, or chat execution features are implemented.
-Router contracts are provider-independent.
-
-No provider execution, agent, workflow, memory, tool, vector, embedding, RAG, or chat features are implemented.
+No provider execution, AI inference, web search, citation validation, hallucination detection, cross-model consensus, knowledge freshness, source reliability, workflow execution, memory retrieval, RAG, agents, or streaming features are implemented unless explicitly approved.
 
 Documentation is updated.
 
@@ -284,8 +207,7 @@ Production Readiness
 
 # Completion Tasks
 
-After Build 09 completes:
-After Build 08 completes:
+After Build 09B completes:
 
 Update
 
@@ -303,35 +225,7 @@ Update
 
 docs/memory/05_CTO_DECISIONS.md if architectural decisions were made
 
-Then prepare:
-
-Build 10
-Build 09
-
----
-
-# Next Planned Build
-
-Build Number
-
-Build 10
-
-Name
-
-Landing Page + Dashboard MVP
-
-Objective
-
-Create the first MVP-facing marketing and dashboard foundation after the workspace architecture is stable, without introducing provider execution unless explicitly approved.
-Build 09
-
-Name
-
-AI Workspace Foundation
-
-Objective
-
-Create the first workspace foundation that can later surface intent, prompt, and routing capabilities through product UI without introducing chat, agents, workflow execution, or provider execution unless explicitly approved.
+Then prepare the next approved build.
 
 ---
 
