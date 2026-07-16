@@ -637,3 +637,51 @@ Approved
 ---
 
 End of 05_CTO_DECISIONS.md
+
+===============================================================================
+DECISION 018
+===============================================================================
+
+Title
+
+Truth Intelligence Engine Foundation
+
+Status
+
+Approved
+
+Related Build
+
+Build 09A
+
+Problem
+
+AgraAI requires a flagship Truth Intelligence Engine that can eventually evaluate truth, trust, evidence, confidence, risk, reliability, weaknesses, explanations, and improvement opportunities without coupling the platform to a specific AI provider or external verification mechanism.
+
+Alternatives
+
+Embed truth analysis inside Prompt Engine
+
+Embed truth analysis inside Router Engine
+
+Call external search or provider APIs directly from product code
+
+Create a provider-independent Truth Intelligence Engine with stable contracts and replaceable pipeline stages
+
+Reasoning
+
+Truth intelligence is a distinct platform capability and should not be coupled to prompt optimization, routing decisions, provider adapters, web search, citations, RAG, or execution logic. A standalone engine preserves the layered architecture and allows future verification capabilities to be added behind a stable analyze() contract.
+
+Final Choice
+
+Create a provider-independent Truth Intelligence Engine module with a public TruthIntelligenceEngine interface, DefaultTruthIntelligenceEngine implementation, modular TruthPipeline, typed input and output models, centralized configuration, validation layer, standardized errors, utility layer, contracts, and barrel exports.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+---
