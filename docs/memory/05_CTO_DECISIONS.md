@@ -817,3 +817,47 @@ Critical
 Approval Status
 
 Approved
+
+---
+
+DECISION 022
+
+Title
+
+Truth Intelligence Public API Boundary
+
+Status
+
+Approved
+
+Related Build
+
+Build 09 Finalization
+
+Problem
+
+Build 09 introduced internal analyzer, registry, research, extension, plugin, index, report, observability, and hook architecture. Exposing those internals from the primary Truth public barrel would make implementation details part of the stable external API and weaken future refactoring safety.
+
+Alternatives
+
+Expose every framework symbol through truth/index.ts
+
+Expose no Truth Intelligence contracts
+
+Expose only stable public engine, package, model, configuration, error, and contract types while keeping internal framework modules behind Truth Engine boundaries
+
+Reasoning
+
+A broad public barrel would leak analyzer internals, registry implementation, orchestration details, and future research scaffolding. Exposing no contracts would reduce developer usability. A minimal public boundary preserves backward-compatible stable APIs while allowing internal framework evolution without redesign.
+
+Final Choice
+
+Keep truth/index.ts limited to stable public engine APIs, TruthPackage-compatible public models, public configuration/version exports, public errors, and intentional contract types. Keep analyzer registry, framework implementation details, pipeline stages, internal orchestration classes, and private helper modules out of the primary public barrel.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved

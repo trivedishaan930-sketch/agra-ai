@@ -1,17 +1,194 @@
 import { z } from "zod";
-import { EvidenceStatus, RecommendationPriority, ReliabilityGrade, TruthCategory, TruthLevel, TruthRiskLevel } from "@/truth/types";
+import {
+  EvidenceStatus,
+  RecommendationPriority,
+  ReliabilityGrade,
+  TruthCategory,
+  TruthLevel,
+  TruthRiskLevel,
+} from "@/truth/types";
 
-export const truthMetadataValueSchema = z.union([z.string(), z.number(), z.boolean(), z.array(z.string())]);
-export const truthContextSchema = z.object({ summary: z.string().trim().optional(), signals: z.array(z.string().trim().min(1)) });
-export const conversationContextSchema = z.object({ conversationId: z.string().trim().optional(), messageCount: z.number().int().min(0).optional(), summary: z.string().trim().optional(), signals: z.array(z.string().trim().min(1)).optional() });
-export const truthInputSchema = z.object({ userRequest: z.string().trim().min(1), intentAnalysis: z.unknown().optional(), promptPackage: z.unknown().optional(), routingDecision: z.unknown().optional(), context: truthContextSchema.optional(), goal: z.string().trim().optional(), tasks: z.array(z.string().trim().min(1)).optional(), metadata: z.record(truthMetadataValueSchema).optional(), conversationContext: conversationContextSchema.optional(), futureExtensions: z.record(z.unknown()).optional() });
+export const truthMetadataValueSchema = z.union([
+  z.string(),
+  z.number(),
+  z.boolean(),
+  z.array(z.string()),
+]);
+export const truthContextSchema = z.object({
+  summary: z.string().trim().optional(),
+  signals: z.array(z.string().trim().min(1)),
+});
+export const conversationContextSchema = z.object({
+  conversationId: z.string().trim().optional(),
+  messageCount: z.number().int().min(0).optional(),
+  summary: z.string().trim().optional(),
+  signals: z.array(z.string().trim().min(1)).optional(),
+});
+export const truthInputSchema = z.object({
+  userRequest: z.string().trim().min(1),
+  intentAnalysis: z.unknown().optional(),
+  promptPackage: z.unknown().optional(),
+  routingDecision: z.unknown().optional(),
+  context: truthContextSchema.optional(),
+  goal: z.string().trim().optional(),
+  tasks: z.array(z.string().trim().min(1)).optional(),
+  metadata: z.record(truthMetadataValueSchema).optional(),
+  conversationContext: conversationContextSchema.optional(),
+  futureExtensions: z.record(z.unknown()).optional(),
+});
 const scoreSchema = z.number().min(0).max(1);
-export const truthMetadataSchema = z.object({ analysisId: z.string().optional(), requestId: z.string().optional(), calculationVersion: z.string().min(1), providerIndependent: z.literal(true), generatedAt: z.string().min(1), tags: z.array(z.string()), properties: z.record(truthMetadataValueSchema), futureExtensions: z.record(z.unknown()) });
-export const truthWarningSchema = z.object({ code: z.string().min(1), message: z.string().min(1), severity: z.nativeEnum(TruthRiskLevel), metadata: z.record(truthMetadataValueSchema) });
-const evidenceModelSchema = z.object({ evidenceSummary: z.string().min(1), evidenceQuality: z.nativeEnum(TruthLevel), evidenceCoverage: scoreSchema, evidenceStatus: z.nativeEnum(EvidenceStatus), missingEvidence: z.array(z.string()), futureEvidenceSources: z.array(z.string()), evidenceReferences: z.array(z.object({ referenceId: z.string(), label: z.string(), status: z.nativeEnum(EvidenceStatus), metadata: z.record(truthMetadataValueSchema) })), evidenceGroups: z.array(z.object({ groupId: z.string(), summary: z.string(), status: z.nativeEnum(EvidenceStatus), references: z.array(z.unknown()) })) });
-const confidenceModelSchema = z.object({ overallConfidence: scoreSchema, confidenceLevel: z.nativeEnum(TruthLevel), confidenceCategory: z.nativeEnum(TruthCategory), confidenceBreakdown: z.object({ inputStructure: scoreSchema, engineReadiness: scoreSchema, evidenceReadiness: scoreSchema, routingReadiness: scoreSchema }), futureConfidenceFactors: z.array(z.string()), confidenceExplanation: z.string() });
-const riskAssessmentSchema = z.object({ riskScore: scoreSchema, riskLevel: z.nativeEnum(TruthRiskLevel), riskCategory: z.nativeEnum(TruthCategory), riskSummary: z.string(), riskFactors: z.array(z.string()), futureRiskSignals: z.array(z.string()) });
-const reliabilityModelSchema = z.object({ reliabilityGrade: z.nativeEnum(ReliabilityGrade), reliabilityScore: scoreSchema, reliabilitySummary: z.string(), reliabilityFactors: z.array(z.string()), futureReliabilitySignals: z.array(z.string()) });
-const weaknessModelSchema = z.object({ weaknessSummary: z.string(), weaknessList: z.array(z.object({ weaknessId: z.string(), summary: z.string(), category: z.nativeEnum(TruthCategory), severity: z.nativeEnum(TruthRiskLevel), improvementPriority: z.nativeEnum(RecommendationPriority), futureAnalyzerOutput: z.record(z.unknown()) })), weaknessCategories: z.array(z.nativeEnum(TruthCategory)), futureAnalyzerOutput: z.record(z.unknown()) });
-const strengthModelSchema = z.object({ strengthSummary: z.string(), strengthList: z.array(z.object({ strengthId: z.string(), summary: z.string(), category: z.nativeEnum(TruthCategory), positiveSignals: z.array(z.string()) })), strengthCategories: z.array(z.nativeEnum(TruthCategory)), positiveSignals: z.array(z.string()), futureStrengthAnalysis: z.record(z.unknown()) });
-export const truthPackageSchema = z.object({ packageVersion: z.string().min(1), metrics: z.object({ truthScore: z.object({ overallScore: scoreSchema, normalizedScore: scoreSchema, confidenceWeightedScore: scoreSchema, explanation: z.string(), calculationVersion: z.string(), metadata: truthMetadataSchema }), trustIndex: z.object({ trustIndex: scoreSchema, trustLevel: z.nativeEnum(TruthLevel), trustCategory: z.nativeEnum(TruthCategory), trustSummary: z.string() }), confidence: confidenceModelSchema, evidence: evidenceModelSchema, risk: riskAssessmentSchema, reliability: reliabilityModelSchema }), summary: z.object({ summary: z.string(), strengths: z.array(z.string()), weaknesses: z.array(z.string()), warnings: z.array(truthWarningSchema) }), weaknesses: weaknessModelSchema, strengths: strengthModelSchema, explanation: z.object({ explanationSummary: z.string(), detailedExplanation: z.string(), evidenceExplanation: z.string(), confidenceExplanation: z.string(), riskExplanation: z.string(), weaknessExplanation: z.string(), improvementExplanation: z.string() }), recommendations: z.array(z.object({ recommendationId: z.string(), improvementSuggestion: z.string(), priority: z.nativeEnum(RecommendationPriority), expectedImprovement: z.string(), affectedMetrics: z.array(z.string()), estimatedScoreImprovement: scoreSchema.optional(), futureAutoSuggestions: z.record(z.unknown()) })), metadata: truthMetadataSchema, futureAnalysis: z.record(z.unknown()), compatibility: z.object({ strategy: z.literal("extend-only"), outputVersion: z.string(), previousVersions: z.array(z.string()) }) });
+export const truthMetadataSchema = z.object({
+  analysisId: z.string().optional(),
+  requestId: z.string().optional(),
+  calculationVersion: z.string().min(1),
+  providerIndependent: z.literal(true),
+  generatedAt: z.string().min(1),
+  tags: z.array(z.string()),
+  properties: z.record(truthMetadataValueSchema),
+  futureExtensions: z.record(z.unknown()),
+});
+export const truthWarningSchema = z.object({
+  code: z.string().min(1),
+  message: z.string().min(1),
+  severity: z.nativeEnum(TruthRiskLevel),
+  metadata: z.record(truthMetadataValueSchema),
+});
+const evidenceModelSchema = z.object({
+  evidenceSummary: z.string().min(1),
+  evidenceQuality: z.nativeEnum(TruthLevel),
+  evidenceCoverage: scoreSchema,
+  evidenceStatus: z.nativeEnum(EvidenceStatus),
+  missingEvidence: z.array(z.string()),
+  futureEvidenceSources: z.array(z.string()),
+  evidenceReferences: z.array(
+    z.object({
+      referenceId: z.string(),
+      label: z.string(),
+      status: z.nativeEnum(EvidenceStatus),
+      metadata: z.record(truthMetadataValueSchema),
+    }),
+  ),
+  evidenceGroups: z.array(
+    z.object({
+      groupId: z.string(),
+      summary: z.string(),
+      status: z.nativeEnum(EvidenceStatus),
+      references: z.array(z.unknown()),
+    }),
+  ),
+});
+const confidenceModelSchema = z.object({
+  overallConfidence: scoreSchema,
+  confidenceLevel: z.nativeEnum(TruthLevel),
+  confidenceCategory: z.nativeEnum(TruthCategory),
+  confidenceBreakdown: z.object({
+    inputStructure: scoreSchema,
+    engineReadiness: scoreSchema,
+    evidenceReadiness: scoreSchema,
+    routingReadiness: scoreSchema,
+  }),
+  futureConfidenceFactors: z.array(z.string()),
+  confidenceExplanation: z.string(),
+});
+const riskAssessmentSchema = z.object({
+  riskScore: scoreSchema,
+  riskLevel: z.nativeEnum(TruthRiskLevel),
+  riskCategory: z.nativeEnum(TruthCategory),
+  riskSummary: z.string(),
+  riskFactors: z.array(z.string()),
+  futureRiskSignals: z.array(z.string()),
+});
+const reliabilityModelSchema = z.object({
+  reliabilityGrade: z.nativeEnum(ReliabilityGrade),
+  reliabilityScore: scoreSchema,
+  reliabilitySummary: z.string(),
+  reliabilityFactors: z.array(z.string()),
+  futureReliabilitySignals: z.array(z.string()),
+});
+const weaknessModelSchema = z.object({
+  weaknessSummary: z.string(),
+  weaknessList: z.array(
+    z.object({
+      weaknessId: z.string(),
+      summary: z.string(),
+      category: z.nativeEnum(TruthCategory),
+      severity: z.nativeEnum(TruthRiskLevel),
+      improvementPriority: z.nativeEnum(RecommendationPriority),
+      futureAnalyzerOutput: z.record(z.unknown()),
+    }),
+  ),
+  weaknessCategories: z.array(z.nativeEnum(TruthCategory)),
+  futureAnalyzerOutput: z.record(z.unknown()),
+});
+const strengthModelSchema = z.object({
+  strengthSummary: z.string(),
+  strengthList: z.array(
+    z.object({
+      strengthId: z.string(),
+      summary: z.string(),
+      category: z.nativeEnum(TruthCategory),
+      positiveSignals: z.array(z.string()),
+    }),
+  ),
+  strengthCategories: z.array(z.nativeEnum(TruthCategory)),
+  positiveSignals: z.array(z.string()),
+  futureStrengthAnalysis: z.record(z.unknown()),
+});
+export const truthPackageSchema = z.object({
+  packageVersion: z.string().min(1),
+  metrics: z.object({
+    truthScore: z.object({
+      overallScore: scoreSchema,
+      normalizedScore: scoreSchema,
+      confidenceWeightedScore: scoreSchema,
+      explanation: z.string(),
+      calculationVersion: z.string(),
+      metadata: truthMetadataSchema,
+    }),
+    trustIndex: z.object({
+      trustIndex: scoreSchema,
+      trustLevel: z.nativeEnum(TruthLevel),
+      trustCategory: z.nativeEnum(TruthCategory),
+      trustSummary: z.string(),
+    }),
+    confidence: confidenceModelSchema,
+    evidence: evidenceModelSchema,
+    risk: riskAssessmentSchema,
+    reliability: reliabilityModelSchema,
+  }),
+  summary: z.object({
+    summary: z.string(),
+    strengths: z.array(z.string()),
+    weaknesses: z.array(z.string()),
+    warnings: z.array(truthWarningSchema),
+  }),
+  weaknesses: weaknessModelSchema,
+  strengths: strengthModelSchema,
+  explanation: z.object({
+    explanationSummary: z.string(),
+    detailedExplanation: z.string(),
+    evidenceExplanation: z.string(),
+    confidenceExplanation: z.string(),
+    riskExplanation: z.string(),
+    weaknessExplanation: z.string(),
+    improvementExplanation: z.string(),
+  }),
+  recommendations: z.array(
+    z.object({
+      recommendationId: z.string(),
+      improvementSuggestion: z.string(),
+      priority: z.nativeEnum(RecommendationPriority),
+      expectedImprovement: z.string(),
+      affectedMetrics: z.array(z.string()),
+      estimatedScoreImprovement: scoreSchema.optional(),
+      futureAutoSuggestions: z.record(z.unknown()),
+    }),
+  ),
+  metadata: truthMetadataSchema,
+  futureAnalysis: z.record(z.unknown()),
+  compatibility: z.object({
+    strategy: z.literal("extend-only"),
+    outputVersion: z.string(),
+    previousVersions: z.array(z.string()),
+  }),
+});

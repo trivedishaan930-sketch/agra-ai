@@ -8,17 +8,23 @@ export function clampScore(score: number): number {
 
 export function averageScores(scores: readonly number[]): number {
   if (scores.length === 0) return truthConfig.scoring.defaultScore;
-  return clampScore(scores.reduce((total, score) => total + score, 0) / scores.length);
+  return clampScore(
+    scores.reduce((total, score) => total + score, 0) / scores.length,
+  );
 }
 
 export function resolveReliabilityGrade(score: number): ReliabilityGrade {
-  const grade = truthConfig.scoring.reliabilityThresholds.find((threshold) => score >= threshold.minimum)?.grade;
+  const grade = truthConfig.scoring.reliabilityThresholds.find(
+    (threshold) => score >= threshold.minimum,
+  )?.grade;
   return (grade ?? ReliabilityGrade.Insufficient) as ReliabilityGrade;
 }
 
 export function resolveRiskLevel(riskIndex: number): TruthRiskLevel {
-  if (riskIndex <= truthConfig.scoring.riskThresholds.low) return TruthRiskLevel.Low;
-  if (riskIndex <= truthConfig.scoring.riskThresholds.medium) return TruthRiskLevel.Medium;
+  if (riskIndex <= truthConfig.scoring.riskThresholds.low)
+    return TruthRiskLevel.Low;
+  if (riskIndex <= truthConfig.scoring.riskThresholds.medium)
+    return TruthRiskLevel.Medium;
   return TruthRiskLevel.High;
 }
 

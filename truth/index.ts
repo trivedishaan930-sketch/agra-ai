@@ -22,6 +22,14 @@ export {
   TruthRiskLevel,
 } from "@/truth/types";
 export type {
+  ConfidenceModel,
+  ConversationContext,
+  EvidenceGroup,
+  EvidenceModel,
+  EvidenceReference,
+  ExplanationModel,
+  ReliabilityModel,
+  RiskAssessment,
   ConfidenceAnalysis,
   ConfidenceModel,
   ConversationContext,
@@ -51,6 +59,18 @@ export type {
   TruthMetrics,
   TruthPackage,
   TruthRecommendation,
+  TruthScore,
+  TruthSummary,
+  TruthWarning,
+  WeaknessItem,
+  WeaknessModel,
+} from "@/truth/types";
+export type {
+  TruthPublicContract,
+  TruthResearchHookContract,
+  TruthScoringMetricContract,
+  TruthValidationContract,
+} from "@/truth/contracts";
   TruthResearchHook,
   TruthScore,
   TruthStageResult,

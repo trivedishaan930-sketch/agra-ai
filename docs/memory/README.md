@@ -23,6 +23,7 @@ This directory is the persistent engineering memory for AgraAI. It is designed t
 ## Scope Rule
 
 This memory system is documentation only. It must describe the application accurately without quietly introducing application-code changes.
+
 # AgraAI Engineering Memory System
 
 Version: 1.0
@@ -98,7 +99,7 @@ Never contains project-specific implementation details.
 
 Updates only when the documentation structure changes.
 
-------------------------------------------------
+---
 
 00_SESSION_BOOTSTRAP.md
 
@@ -112,7 +113,7 @@ Contains engineering behavior rules.
 
 Used before every build.
 
-------------------------------------------------
+---
 
 01_STATIC_CONTEXT.md
 
@@ -142,7 +143,7 @@ Naming Conventions
 
 Changes very rarely.
 
-------------------------------------------------
+---
 
 02_CURRENT_STATE.md
 
@@ -164,7 +165,7 @@ Temporary Notes
 
 Updated after every successful build.
 
-------------------------------------------------
+---
 
 03_BUILD_HISTORY.md
 
@@ -188,7 +189,7 @@ Never delete previous entries.
 
 Append only.
 
-------------------------------------------------
+---
 
 04_NEXT_BUILD.md
 
@@ -208,7 +209,7 @@ Success Criteria
 
 Updated after every completed build.
 
-------------------------------------------------
+---
 
 05_CTO_DECISIONS.md
 
@@ -232,7 +233,7 @@ Why Repository Memory
 
 Every important decision should be recorded.
 
-------------------------------------------------
+---
 
 06_PROJECT_STATUS.md
 

@@ -38,4 +38,11 @@ export type {
   WeaknessItem,
   WeaknessModel,
 } from "@/truth/types";
-export { EvidenceStatus, RecommendationPriority, ReliabilityGrade, TruthCategory, TruthLevel, TruthRiskLevel } from "@/truth/types";
+export {
+  EvidenceStatus,
+  RecommendationPriority,
+  ReliabilityGrade,
+  TruthCategory,
+  TruthLevel,
+  TruthRiskLevel,
+} from "@/truth/types";

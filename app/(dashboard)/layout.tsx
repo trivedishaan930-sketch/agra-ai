@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <ProtectedLayout pathname="/dashboard">
-      <div className="min-h-screen bg-muted/30">
+      <div className="bg-muted/30 min-h-screen">
         <DashboardSidebar />
         <div className="md:pl-64">
           <DashboardHeader />

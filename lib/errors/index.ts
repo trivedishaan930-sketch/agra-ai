@@ -1,4 +1,11 @@
-export type AppErrorCode = "BAD_REQUEST" | "UNAUTHORIZED" | "FORBIDDEN" | "NOT_FOUND" | "VALIDATION_ERROR" | "RATE_LIMITED" | "INTERNAL_ERROR";
+export type AppErrorCode =
+  | "BAD_REQUEST"
+  | "UNAUTHORIZED"
+  | "FORBIDDEN"
+  | "NOT_FOUND"
+  | "VALIDATION_ERROR"
+  | "RATE_LIMITED"
+  | "INTERNAL_ERROR";
 
 const statusByCode: Record<AppErrorCode, number> = {
   BAD_REQUEST: 400,
@@ -26,6 +33,7 @@ export class AppError extends Error {
 
 export function toAppError(error: unknown): AppError {
   if (error instanceof AppError) return error;
-  if (error instanceof Error) return new AppError("INTERNAL_ERROR", error.message);
+  if (error instanceof Error)
+    return new AppError("INTERNAL_ERROR", error.message);
   return new AppError("INTERNAL_ERROR", "An unexpected error occurred.");
 }

@@ -1,7 +1,12 @@
 import type { IntentAnalysis } from "@/intent";
 import type { PromptPackage } from "@/prompt";
 import type { RoutingDecision } from "@/router";
-import type { NormalizedTruthInput, TruthInput, TruthIntelligencePackage, TruthMetadataValue } from "@/truth/types";
+import type {
+  NormalizedTruthInput,
+  TruthInput,
+  TruthIntelligencePackage,
+  TruthMetadataValue,
+} from "@/truth/types";
 
 export type TruthLifecycleState =
   | "initialized"
@@ -32,7 +37,8 @@ export type TruthPipelineContext = Readonly<{
   normalizedInput?: NormalizedTruthInput;
 }>;
 
-export type TruthCompletedContext = TruthPipelineContext & Readonly<{
-  normalizedInput: NormalizedTruthInput;
-  package: TruthIntelligencePackage;
-}>;
+export type TruthCompletedContext = TruthPipelineContext &
+  Readonly<{
+    normalizedInput: NormalizedTruthInput;
+    package: TruthIntelligencePackage;
+  }>;

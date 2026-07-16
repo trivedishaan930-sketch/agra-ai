@@ -1,14 +1,102 @@
 import { truthConfig } from "@/truth/config";
-import type { TruthAnalysisState, TruthMetadata, TruthPackage, TruthSummary, TruthWarning } from "@/truth/types";
+import type {
+  TruthAnalysisState,
+  TruthMetadata,
+  TruthPackage,
+  TruthSummary,
+  TruthWarning,
+} from "@/truth/types";
 import { TruthCategory } from "@/truth/types";
 import { averageScores, resolveTruthLevel, uniqueStrings } from "@/truth/utils";
 
 export class TruthPackageBuilder {
   build(state: TruthAnalysisState): TruthPackage {
-    const trustIndex = averageScores([state.truth.score, state.evidence.evidence.evidenceCoverage, state.confidence.confidence.overallConfidence, state.reliability.reliability.reliabilityScore, 1 - state.risk.risk.riskScore]);
-    const metadata: TruthMetadata = { calculationVersion: truthConfig.versioning.scoreVersion, providerIndependent: true, generatedAt: new Date().toISOString(), tags: ["truth-intelligence", "foundation", "provider-independent"], properties: { externalApisUsed: false, aiInferenceUsed: false, packageVersion: truthConfig.output.packageVersion, pipelineVersion: truthConfig.versioning.pipelineVersion }, futureExtensions: state.input.futureExtensions ?? {} };
-    const warnings: TruthWarning[] = [...state.truth.warnings, ...state.evidence.warnings, ...state.confidence.warnings, ...state.risk.warnings, ...state.reliability.warnings, ...state.weakness.warnings, ...state.strength.warnings, ...state.explanation.warnings, ...state.improvement.warnings];
-    const summary: TruthSummary = { summary: state.explanation.explanation.explanationSummary, strengths: uniqueStrings(state.strength.strengths.strengthList.map((strength) => strength.summary)), weaknesses: uniqueStrings(state.weakness.weaknesses.weaknessList.map((weakness) => weakness.summary)), warnings };
-    return { packageVersion: truthConfig.output.packageVersion, metrics: { truthScore: { overallScore: state.truth.score, normalizedScore: state.truth.score, confidenceWeightedScore: averageScores([state.truth.score, state.confidence.confidence.overallConfidence]), explanation: "Foundation score reflects structured-input readiness only; no truth scoring formula was executed.", calculationVersion: truthConfig.versioning.scoreVersion, metadata }, trustIndex: { trustIndex, trustLevel: resolveTruthLevel(trustIndex), trustCategory: TruthCategory.FoundationOnly, trustSummary: "Trust index is architecture-only and does not represent factual verification." }, confidence: state.confidence.confidence, evidence: state.evidence.evidence, risk: state.risk.risk, reliability: state.reliability.reliability }, summary, weaknesses: state.weakness.weaknesses, strengths: state.strength.strengths, explanation: state.explanation.explanation, recommendations: state.improvement.recommendations, metadata, futureAnalysis: Object.fromEntries(truthConfig.research.hooks.map((hook) => [hook, null])), compatibility: { strategy: truthConfig.output.compatibilityStrategy, outputVersion: truthConfig.versioning.outputVersion, previousVersions: [] } };
+    const trustIndex = averageScores([
+      state.truth.score,
+      state.evidence.evidence.evidenceCoverage,
+      state.confidence.confidence.overallConfidence,
+      state.reliability.reliability.reliabilityScore,
+      1 - state.risk.risk.riskScore,
+    ]);
+    const metadata: TruthMetadata = {
+      calculationVersion: truthConfig.versioning.scoreVersion,
+      providerIndependent: true,
+      generatedAt: new Date().toISOString(),
+      tags: ["truth-intelligence", "foundation", "provider-independent"],
+      properties: {
+        externalApisUsed: false,
+        aiInferenceUsed: false,
+        packageVersion: truthConfig.output.packageVersion,
+        pipelineVersion: truthConfig.versioning.pipelineVersion,
+      },
+      futureExtensions: state.input.futureExtensions ?? {},
+    };
+    const warnings: TruthWarning[] = [
+      ...state.truth.warnings,
+      ...state.evidence.warnings,
+      ...state.confidence.warnings,
+      ...state.risk.warnings,
+      ...state.reliability.warnings,
+      ...state.weakness.warnings,
+      ...state.strength.warnings,
+      ...state.explanation.warnings,
+      ...state.improvement.warnings,
+    ];
+    const summary: TruthSummary = {
+      summary: state.explanation.explanation.explanationSummary,
+      strengths: uniqueStrings(
+        state.strength.strengths.strengthList.map(
+          (strength) => strength.summary,
+        ),
+      ),
+      weaknesses: uniqueStrings(
+        state.weakness.weaknesses.weaknessList.map(
+          (weakness) => weakness.summary,
+        ),
+      ),
+      warnings,
+    };
+    return {
+      packageVersion: truthConfig.output.packageVersion,
+      metrics: {
+        truthScore: {
+          overallScore: state.truth.score,
+          normalizedScore: state.truth.score,
+          confidenceWeightedScore: averageScores([
+            state.truth.score,
+            state.confidence.confidence.overallConfidence,
+          ]),
+          explanation:
+            "Foundation score reflects structured-input readiness only; no truth scoring formula was executed.",
+          calculationVersion: truthConfig.versioning.scoreVersion,
+          metadata,
+        },
+        trustIndex: {
+          trustIndex,
+          trustLevel: resolveTruthLevel(trustIndex),
+          trustCategory: TruthCategory.FoundationOnly,
+          trustSummary:
+            "Trust index is architecture-only and does not represent factual verification.",
+        },
+        confidence: state.confidence.confidence,
+        evidence: state.evidence.evidence,
+        risk: state.risk.risk,
+        reliability: state.reliability.reliability,
+      },
+      summary,
+      weaknesses: state.weakness.weaknesses,
+      strengths: state.strength.strengths,
+      explanation: state.explanation.explanation,
+      recommendations: state.improvement.recommendations,
+      metadata,
+      futureAnalysis: Object.fromEntries(
+        truthConfig.research.hooks.map((hook) => [hook, null]),
+      ),
+      compatibility: {
+        strategy: truthConfig.output.compatibilityStrategy,
+        outputVersion: truthConfig.versioning.outputVersion,
+        previousVersions: [],
+      },
+    };
   }
 }
