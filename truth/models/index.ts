@@ -1,6 +1,5 @@
 export type {
   ConfidenceAnalysis,
-  ConfidenceBreakdown,
   ConfidenceModel,
   ConversationContext,
   EvidenceAnalysis,
@@ -20,13 +19,6 @@ export type {
   StrengthModel,
   TrustIndex,
   TruthAnalysisInput,
-  TruthAnalysisResult,
-  ConversationContext,
-  EvidenceAnalysis,
-  ImprovementAnalysis,
-  NormalizedTruthInput,
-  ReliabilityAnalysis,
-  RiskAnalysis,
   TruthAnalysisState,
   TruthContext,
   TruthInput,
@@ -36,24 +28,14 @@ export type {
   TruthMetrics,
   TruthPackage,
   TruthRecommendation,
+  TruthResearchHook,
   TruthScore,
   TruthStageResult,
   TruthSummary,
+  TruthValidationScope,
   TruthWarning,
   WeaknessAnalysis,
   WeaknessItem,
   WeaknessModel,
 } from "@/truth/types";
-export {
-  EvidenceStatus,
-  RecommendationPriority,
-  ReliabilityGrade,
-  TruthCategory,
-  TruthLevel,
-  TruthRiskLevel,
-} from "@/truth/types";
-  TruthMetadataValue,
-  TruthStageResult,
-  WeaknessAnalysis,
-} from "@/truth/types";
-export { ReliabilityGrade, TruthRiskLevel } from "@/truth/types";
+export { EvidenceStatus, RecommendationPriority, ReliabilityGrade, TruthCategory, TruthLevel, TruthRiskLevel } from "@/truth/types";
