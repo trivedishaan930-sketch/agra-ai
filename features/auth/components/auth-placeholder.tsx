@@ -1,3 +1,7 @@
 export function AuthPlaceholder() {
-  return <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">Authentication UI placeholder.</div>;
+  return (
+    <div className="bg-card text-muted-foreground rounded-lg border p-6 text-sm">
+      Authentication UI placeholder.
+    </div>
+  );
 }

@@ -3,7 +3,12 @@ import { AppError } from "@/lib/errors";
 
 export function validateInput<T>(schema: ZodSchema<T>, input: unknown): T {
   const result = schema.safeParse(input);
-  if (!result.success) throw new AppError("VALIDATION_ERROR", "Input validation failed.", result.error.flatten());
+  if (!result.success)
+    throw new AppError(
+      "VALIDATION_ERROR",
+      "Input validation failed.",
+      result.error.flatten(),
+    );
   return result.data;
 }
 

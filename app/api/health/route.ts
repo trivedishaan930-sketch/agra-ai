@@ -10,7 +10,9 @@ async function checkDatabase() {
     await prisma.$queryRaw`SELECT 1`;
     return { status: "ok" as const };
   } catch (error) {
-    logger.warn("Health check database probe failed", { error: error instanceof Error ? error.message : String(error) });
+    logger.warn("Health check database probe failed", {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return { status: "degraded" as const };
   }
 }

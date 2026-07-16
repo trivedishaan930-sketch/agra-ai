@@ -1,4 +1,10 @@
-import type { TruthInput, TruthIntelligencePackage, TruthMetricKey, TruthResearchHook, TruthValidationScope } from "@/truth/types";
+import type {
+  TruthInput,
+  TruthIntelligencePackage,
+  TruthMetricKey,
+  TruthResearchHook,
+  TruthValidationScope,
+} from "@/truth/types";
 
 export type TruthPublicContract = Readonly<{
   analyze(input: TruthInput): TruthIntelligencePackage;

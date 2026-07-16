@@ -1,5 +1,10 @@
 import { redirect } from "next/navigation";
-import { getLoginRedirect, getPostAuthRedirect, isProtectedRoute, isPublicRoute } from "@/services/auth/helpers";
+import {
+  getLoginRedirect,
+  getPostAuthRedirect,
+  isProtectedRoute,
+  isPublicRoute,
+} from "@/services/auth/helpers";
 import { getServerUser } from "@/services/auth/server";
 
 export async function guardProtectedRoute(pathname: string) {

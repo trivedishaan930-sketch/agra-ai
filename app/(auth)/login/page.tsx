@@ -12,7 +12,10 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const nextPath = getPostAuthRedirect(params?.next ?? null);
 
   return (
-    <AuthLayout title="Log in" description="Use a secure email link or Google to access AgraAI.">
+    <AuthLayout
+      title="Log in"
+      description="Use a secure email link or Google to access AgraAI."
+    >
       <LoginCard redirectTo={`${appConfig.url}${nextPath}`} />
     </AuthLayout>
   );

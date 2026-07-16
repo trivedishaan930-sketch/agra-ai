@@ -9,7 +9,10 @@ export function getAuthClient() {
 
 export async function signInWithEmailOtp({ email, redirectTo }: EmailOtpInput) {
   const supabase = getAuthClient();
-  return supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } });
+  return supabase.auth.signInWithOtp({
+    email,
+    options: { emailRedirectTo: redirectTo },
+  });
 }
 
 export async function signInWithOAuth({ provider, redirectTo }: OAuthInput) {

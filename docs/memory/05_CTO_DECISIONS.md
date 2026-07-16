@@ -771,3 +771,95 @@ High
 Approval Status
 
 Approved
+
+---
+
+===============================================================================
+DECISION 021
+===============================================================================
+
+Title
+
+Truth Intelligence Internal Intelligence Framework Standard
+
+Status
+
+Approved
+
+Related Build
+
+Build 09B Part 2
+
+Problem
+
+Future Truth Intelligence capabilities require analyzers, research modules, indexes, reports, plugins, hooks, and observability to evolve without modifying the stable TruthIntelligenceEngine.analyze() contract or coupling future systems to provider execution, external APIs, or internal pipeline details.
+
+Alternatives
+
+Add future capabilities directly inside existing analyzers
+
+Create feature-specific contracts per capability
+
+Create a reusable internal intelligence framework with analyzer, registry, extension, plugin, index, report, research, hook, and observability contracts
+
+Reasoning
+
+Adding future capabilities directly inside existing analyzers would create coupling and duplicate lifecycle logic. Feature-specific contracts would fragment the architecture. A reusable framework keeps analyzers replaceable, metadata-driven, plugin-ready, index/report-ready, and provider-independent while preserving public interfaces and leaving all algorithms unimplemented until explicitly approved.
+
+Final Choice
+
+Use a reusable architecture-only internal intelligence framework centered on a common analyzer contract, abstract analyzer base, analyzer registry, research placeholders, extension API, plugin contracts, unlimited index contracts, report contracts, observability placeholders, and innovation hooks.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+---
+
+===============================================================================
+DECISION 022
+===============================================================================
+
+Title
+
+Truth Intelligence Public API Boundary
+
+Status
+
+Approved
+
+Related Build
+
+Build 09 Finalization
+
+Problem
+
+Build 09 introduced internal analyzer, registry, research, extension, plugin, index, report, observability, and hook architecture. Exposing those internals from the primary Truth public barrel would make implementation details part of the stable external API and weaken future refactoring safety.
+
+Alternatives
+
+Expose every framework symbol through truth/index.ts
+
+Expose no Truth Intelligence contracts
+
+Expose only stable public engine, package, model, configuration, error, and contract types while keeping internal framework modules behind Truth Engine boundaries
+
+Reasoning
+
+A broad public barrel would leak analyzer internals, registry implementation, orchestration details, and future research scaffolding. Exposing no contracts would reduce developer usability. A minimal public boundary preserves backward-compatible stable APIs while allowing internal framework evolution without redesign.
+
+Final Choice
+
+Keep truth/index.ts limited to stable public engine APIs, TruthPackage-compatible public models, public configuration/version exports, public errors, and intentional contract types. Keep analyzer registry, framework implementation details, pipeline stages, internal orchestration classes, and private helper modules out of the primary public barrel.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved

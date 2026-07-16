@@ -1,5 +1,8 @@
 export class TruthIntelligenceError extends Error {
-  constructor(message: string, public readonly cause?: unknown) {
+  constructor(
+    message: string,
+    public readonly cause?: unknown,
+  ) {
     super(message);
     this.name = "TruthIntelligenceError";
   }

@@ -11,8 +11,16 @@ export class TruthInputNormalizer {
     return {
       ...input,
       normalizedUserRequest: normalizeTruthText(input.userRequest),
-      resolvedGoal: normalizeTruthText(input.goal ?? input.intentAnalysis?.goal.description ?? "Understand truth readiness"),
-      resolvedTasks: uniqueStrings(input.tasks ?? input.intentAnalysis?.tasks.map((task) => task.type) ?? []),
+      resolvedGoal: normalizeTruthText(
+        input.goal ??
+          input.intentAnalysis?.goal.description ??
+          "Understand truth readiness",
+      ),
+      resolvedTasks: uniqueStrings(
+        input.tasks ??
+          input.intentAnalysis?.tasks.map((task) => task.type) ??
+          [],
+      ),
       contextSignals,
     };
   }

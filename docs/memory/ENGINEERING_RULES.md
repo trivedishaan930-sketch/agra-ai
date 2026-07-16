@@ -1,4 +1,5 @@
 # AgraAI Session ENGINEERING_RULES
+
 Version: 1.0
 Status: Official
 Document Type: AI Engineering Bootstrap
