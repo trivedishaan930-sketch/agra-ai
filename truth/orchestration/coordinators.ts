@@ -1,3 +1,4 @@
+import { analyzerRegistry } from "@/truth/framework";
 import type { TruthPipeline } from "@/truth/pipeline";
 import { TruthValidator } from "@/truth/validators";
 import type { TruthInput, TruthIntelligencePackage } from "@/truth/types";
@@ -39,7 +40,7 @@ export interface AnalyzerCoordinator {
 
 export const defaultAnalyzerCoordinator: AnalyzerCoordinator = {
   parallelReady: false,
-  analyzerOrder: ["truth", "evidence", "confidence", "risk", "reliability", "weakness", "strength", "improvement", "explanation"],
+  analyzerOrder: analyzerRegistry.discover().map((metadata) => metadata.id),
 };
 
 export interface FutureParallelCoordinator {
