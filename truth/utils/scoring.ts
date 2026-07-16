@@ -1,25 +1,24 @@
 import { truthConfig } from "@/truth/config";
 import { ReliabilityGrade, TruthLevel, TruthRiskLevel } from "@/truth/types";
-import { ReliabilityGrade, TruthRiskLevel } from "@/truth/types";
 
 export function clampScore(score: number): number {
-  if (Number.isNaN(score)) return truthConfig.defaultScore;
+  if (Number.isNaN(score)) return truthConfig.scoring.defaultScore;
   return Math.min(1, Math.max(0, Number(score.toFixed(4))));
 }
 
 export function averageScores(scores: readonly number[]): number {
-export function averageScores(scores: number[]): number {
-  if (scores.length === 0) return truthConfig.defaultScore;
+  if (scores.length === 0) return truthConfig.scoring.defaultScore;
   return clampScore(scores.reduce((total, score) => total + score, 0) / scores.length);
 }
 
 export function resolveReliabilityGrade(score: number): ReliabilityGrade {
-  return truthConfig.reliabilityThresholds.find((threshold) => score >= threshold.minimum)?.grade ?? ReliabilityGrade.Insufficient;
+  const grade = truthConfig.scoring.reliabilityThresholds.find((threshold) => score >= threshold.minimum)?.grade;
+  return (grade ?? ReliabilityGrade.Insufficient) as ReliabilityGrade;
 }
 
 export function resolveRiskLevel(riskIndex: number): TruthRiskLevel {
-  if (riskIndex <= truthConfig.riskThresholds.low) return TruthRiskLevel.Low;
-  if (riskIndex <= truthConfig.riskThresholds.medium) return TruthRiskLevel.Medium;
+  if (riskIndex <= truthConfig.scoring.riskThresholds.low) return TruthRiskLevel.Low;
+  if (riskIndex <= truthConfig.scoring.riskThresholds.medium) return TruthRiskLevel.Medium;
   return TruthRiskLevel.High;
 }
 

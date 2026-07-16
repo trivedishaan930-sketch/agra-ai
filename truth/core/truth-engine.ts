@@ -1,18 +1,16 @@
 import type { TruthIntelligenceEngine } from "@/truth/interfaces";
-import { TruthPipeline } from "@/truth/pipeline";
-import type { TruthAnalysisInput, TruthPackage } from "@/truth/types";
+import { DefaultTruthEngineOrchestrator, type TruthEngineOrchestrator } from "@/truth/orchestration";
 import type { TruthInput, TruthIntelligencePackage } from "@/truth/types";
 
 export class DefaultTruthIntelligenceEngine implements TruthIntelligenceEngine {
-  private readonly pipeline: TruthPipeline;
+  private readonly orchestrator: TruthEngineOrchestrator;
 
-  constructor(pipeline = new TruthPipeline()) {
-    this.pipeline = pipeline;
+  constructor(orchestrator: TruthEngineOrchestrator = new DefaultTruthEngineOrchestrator()) {
+    this.orchestrator = orchestrator;
   }
 
-  analyze(input: TruthAnalysisInput): TruthPackage {
   analyze(input: TruthInput): TruthIntelligencePackage {
-    return this.pipeline.analyze(input);
+    return this.orchestrator.analyze(input);
   }
 }
 

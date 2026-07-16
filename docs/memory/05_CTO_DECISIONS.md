@@ -685,3 +685,91 @@ Approval Status
 Approved
 
 ---
+
+===============================================================================
+DECISION 019
+===============================================================================
+
+Title
+
+Truth Intelligence Configuration, Validation, and Output Contract Standard
+
+Status
+
+Approved
+
+Related Build
+
+Build 09A
+
+Problem
+
+Truth Intelligence capabilities will expand across scoring, evidence, confidence, risk, reliability, explanations, improvements, research hooks, and future verification systems. Without a centralized configuration source, reusable validation framework, reusable scoring architecture, and stable public output contract, future builds could duplicate logic or redesign public APIs.
+
+Alternatives
+
+Keep configuration inside individual analyzers
+
+Allow each Truth capability to define its own validation and scoring contracts
+
+Create a centralized Truth configuration with reusable validation, scoring, compatibility, security, performance, and research extension boundaries
+
+Reasoning
+
+Analyzer-local configuration would duplicate constants and make future capabilities harder to audit. Per-feature validation/scoring contracts would create inconsistent output and weaken UI/API compatibility. A centralized configuration and stable TruthPackage output contract lets future builds extend the engine without replacing public contracts or exposing internals.
+
+Final Choice
+
+Use config/truth.config.ts as the single source of truth for Truth Intelligence Engine configuration, feature flags, versioning, validation, scoring, security, performance extension points, output compatibility, and future research hooks. Preserve TruthIntelligenceEngine.analyze() and TruthPackage as stable public contracts with extend-only compatibility.
+
+Expected Impact
+
+Critical
+
+Approval Status
+
+Approved
+
+===============================================================================
+DECISION 020
+===============================================================================
+
+Title
+
+Truth Intelligence Lifecycle Orchestration Standard
+
+Status
+
+Approved
+
+Related Build
+
+Build 09B Part 1
+
+Problem
+
+Truth Intelligence must participate in the AgraAI intelligence chain after Intent, Prompt, and Router preparation but before future AI execution. Without a lifecycle and orchestration boundary, future execution, retries, parallel analyzers, or package aggregation could leak internal state or couple Truth logic to provider execution.
+
+Alternatives
+
+Call the Truth pipeline directly from future execution code
+
+Embed lifecycle state inside individual analyzers
+
+Create an orchestration layer with explicit execution, analysis, pipeline contexts, lifecycle management, coordinators, result aggregation, and immutable outputs
+
+Reasoning
+
+Direct pipeline calls would blur application orchestration and internal pipeline responsibilities. Analyzer-local lifecycle state would duplicate behavior and increase mutation risk. A dedicated orchestration layer preserves the Core Engine Standard while making lifecycle stages replaceable and keeping provider execution out of the Truth Engine.
+
+Final Choice
+
+Use TruthEngineOrchestrator, TruthLifecycleManager, TruthExecutionContext, TruthAnalysisContext, TruthPipelineContext, coordinator interfaces, and TruthResultAggregator as the orchestration boundary for the Truth Intelligence Engine. Generated TruthPackage outputs are aggregated as immutable results.
+
+Expected Impact
+
+High
+
+Approval Status
+
+Approved

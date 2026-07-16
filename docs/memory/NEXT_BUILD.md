@@ -1,21 +1,9 @@
 # AgraAI Next Build
 
-Version: 1.6
+Version: 1.8
 Status: Dynamic
 Document Type: Next Engineering Build
 Last Updated: 2026-07-16
-
----
-
-# Purpose
-
-This document defines the next engineering objective for AgraAI.
-
-Every AI coding assistant and engineer must read this document after understanding the current project state.
-
-This document contains only the next approved engineering target.
-
-After successful completion of a build, this file must be updated for the following build.
 
 ---
 
@@ -23,11 +11,11 @@ After successful completion of a build, this file must be updated for the follow
 
 Build Number
 
-Build 09B
+Build 09B Part 2
 
 Name
 
-Truth Intelligence Engine — Part 2
+Truth Intelligence Engine — Lifecycle Extension
 
 Priority
 
@@ -45,187 +33,62 @@ Pending
 
 # Build Objective
 
-Extend the Truth Intelligence Engine only through the existing provider-independent architecture and stable analyze() contract established in Build 09A.
-
-Build 09B must remain architecture-compatible unless explicitly expanded.
+Extend the Truth Intelligence Engine only through the provider-independent orchestration, lifecycle, centralized configuration, reusable validation framework, reusable scoring architecture, stable analyze() contract, and extend-only TruthPackage output strategy established in Build 09A and Build 09B Part 1.
 
 ---
 
 # Scope
 
-This build is limited to approved Truth Intelligence Engine evolution.
-
 Included
 
 • Preserve the TruthIntelligenceEngine public interface
-
-• Extend internal stages only through replaceable pipeline components
-
-• Preserve typed TruthInput and TruthIntelligencePackage compatibility
-
+• Preserve TruthEngineOrchestrator lifecycle boundaries
+• Extend internal orchestration stages only through replaceable components
+• Preserve TruthExecutionContext, TruthAnalysisContext, and TruthPipelineContext compatibility
+• Preserve typed TruthInput and TruthPackage compatibility
+• Preserve centralized configuration in config/truth.config.ts
+• Preserve reusable validation and scoring frameworks
 • Preserve provider independence
-
-• Preserve validation, configuration, errors, utilities, contracts, and barrel exports
+• Preserve immutable TruthPackage outputs
+• Preserve public-only barrel exports
 
 Not Included
 
 ❌ Provider execution
-
 ❌ AI inference
-
 ❌ Web search
-
 ❌ Citation validation
-
 ❌ Hallucination detection
-
 ❌ Cross-model consensus
-
 ❌ Knowledge freshness checks
-
 ❌ Source reliability checks
-
 ❌ External APIs
-
 ❌ Workflow execution
-
 ❌ Memory retrieval
-
 ❌ RAG
-
 ❌ Agents
-
+❌ Embeddings
+❌ Tool calling
 ❌ Streaming
-
-Those belong to future approved builds only.
-
----
-
-# Architecture Requirements
-
-The Truth Intelligence Engine must continue to support:
-
-Provider-independent contracts
-
-Stable analyze() public interface
-
-Structured input models
-
-Unified Truth Intelligence Package output
-
-Replaceable validation, truth, evidence, confidence, risk, reliability, weakness, and improvement stages
-
-Centralized configuration
-
-Standardized errors
-
-Utility layer
-
-No provider-specific code
-
-No external execution behavior
-
----
-
-# Engineering Constraints
-
-Do NOT modify:
-
-Authentication internals
-
-Middleware behavior
-
-Session management
-
-Database schema unless explicitly required
-
-Security foundation
-
-AI provider adapter behavior
-
-Intent Engine internals
-
-Prompt Engine internals
-
-Router Engine internals
-
-Build 09B must extend existing architecture.
-
-Nothing completed previously should be rebuilt.
-
-No AI calls may be introduced unless explicitly requested.
+❌ Business logic
 
 ---
 
 # Success Criteria
 
-Build 09B is successful only if:
+Build 09B Part 2 is successful only if:
 
-TypeScript compiles.
-
-Lint passes.
-
-Project builds successfully.
-
-Truth Intelligence Engine contracts remain provider-independent.
-
-No provider execution, AI inference, web search, citation validation, hallucination detection, cross-model consensus, knowledge freshness, source reliability, workflow execution, memory retrieval, RAG, agents, or streaming features are implemented unless explicitly approved.
-
-Documentation is updated.
-
-No breaking changes are introduced.
-
----
-
-# CTO Review Checklist
-
-Architecture
-
-Provider Independence
-
-Intent Engine Compatibility
-
-Prompt Engine Compatibility
-
-Router Engine Compatibility
-
-Maintainability
-
-Validation
-
-Extensibility
-
-Security
-
-Performance
-
-Documentation
-
-Production Readiness
-
----
-
-# Completion Tasks
-
-After Build 09B completes:
-
-Update
-
-docs/memory/CURRENT_STATE.md
-
-Update
-
-docs/memory/BUILD_HISTORY.md
-
-Update
-
-docs/memory/NEXT_BUILD.md
-
-Update
-
-docs/memory/05_CTO_DECISIONS.md if architectural decisions were made
-
-Then prepare the next approved build.
+• TypeScript compiles
+• Lint passes
+• Project builds successfully
+• Truth Intelligence Engine contracts remain provider-independent
+• Lifecycle orchestration remains deterministic and replaceable
+• TruthPackage remains immutable after generation
+• TruthPackage remains the permanent public output contract
+• Centralized configuration remains the source of truth
+• No non-goal capability is implemented unless explicitly approved
+• Documentation is updated
+• No breaking changes are introduced
 
 ---
 
